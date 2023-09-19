@@ -1,0 +1,92 @@
+1. Sukurti 10-ies skaičių masyvą.
+
+2. Sukurti funkciją, kuri priima skaičių masyvą ir grąžina jų vidurkį.
+2.1. Reikšmę išsaugoti ir išvesti į ekraną (HTML elementą) tokiu formatu: „Skaičių (1, 2, 3, 5, 6 ...) vidurkis yra 15"
+
+3. Sukurti funkciją, kuri priima skaičių masyvą ir grąžina jų medianą.
+3.1. Reikšmę išsaugoti ir išvesti į ekraną (HTML elementą) tokiu formatu: „Skaičių (1, 2, 3, 5, 6 ...) mediana yra 15"
+
+4. Sukurti funkciją, kuri priima skaičių masyvą ir grąžina didžiausia jame esantį skaičių.
+4.1. Reikšmę išsaugoti ir išvesti į ekraną (HTML elementą) tokiu formatu: „Skaičių (1, 2, 3, 5, 6 ...) didžiausias skaičius yra 15"
+
+5. Sukurti funkciją, kuri priima skaičių masyvą ir grąžina mažiausią jame esantį skaičių.
+5.1. Reikšmę išsaugoti ir išvesti į ekraną (HTML elementą) tokiu formatu: „Skaičių (1, 2, 3, 5, 6 ...) mažiausias skaičius yra 1"
+
+6. Sukurti funkciją, kuri priima skaičių masyvą ir grąžina n-tąjį skaičių pagal dydį (skaičiuojant nuo mažiausio iki didžiausio).
+6.1. Reikšmę išsaugoti ir išvesti į ekraną (HTML elementą) tokiu formatu: „Skaičių (1, 2, 3, 5, 6 ...) 3 skaičius pagal dydį yra 3"
+
+
+
+
+
+
+
+1.	Sukurti funkciją, kuri priima du parametrus: pradinių duomenų masyvą ir filtruojamų duomenų masyvą. Ši funkcija turi patikrinti ar pradiniame duomenų masyve yra narių, kurie yra filtruojamų duomenų masyve. Funkcija grąžinti naują masyvą su išfiltruotais duomenimis. Pvz., jeigu pradinis duomenų masyvas yra [2, 5, 7, 8, 5, 4], o  filtruojamų duomenų masyvas yra [5, 4], tai funkcija turėtų grąžinti [5, 5, 4].
+
+2.	Sukurti funkciją, kuri priima du parametrus: pradinių duomenų masyvą ir filtruojamų skaičių masyvą. Ši funkcija turi patikrinti ar pradiniame duomenų masyve yra narių, kurie dalijasi iš visų filtruojamų skaičių masyve esančių narių. Funkcija grąžinti naują masyvą su išfiltruotais duomenimis. Pvz., jeigu pradinis duomenų masyvas yra [2, 5, 7, 8, 5, 4], o filtruojamų skaičių masyvas yra [2, 4], tai funkcija turėtų grąžinti [8, 4].
+
+3.	Antrą funkciją papildyti papildomu parametru, kuris nurodo ar pradinių duomenų masyve esantys skaičiai turi dalintis iš visų filtruojamų skaičių masyve esančių skaičių ar tik bet iš vieno iš jų. Pvz., jeigu turi dalintis iš visų, tada reikia išfiltruoti tokiu pačiu būdu kaip antroje užduotyje. Tačiau jeigu dalintis turi bent iš vieno filtruojamų skaičių masyve esančio skaičiaus, tada jeigu pradinis duomenų masyvas yra [5, 7, 8, 5, 4], o filtruojamų skaičių masyvas yra [2, 4], tai funkcija turėtų grąžinti [2, 8, 4].
+
+
+
+
+
+
+1. Sukurti funkciją, kuri į masyvo pabaigą įdeda naują narį.
+Ši funkcija priima du parametrus: duomenų masyvą ir naują narį.
+Ši funkciją grąžina naują masyvą, kuriame į pradinių duomenų masyvo pabaigą, jau įdėtas ir naujas narys.
+Šioje funkcijoje negalima naudoti metodų push ar splice, kurie leistų tiesiogiai įdėti narį į masyvo pabaigą.
+
+2. Sukurti funkciją, kuri į masyvo pradžią įdeda naują narį.
+Ši funkcija priima du parametrus: duomenų masyvą ir naują narį.
+Ši funkciją grąžina naują masyvą, kuriame į pradinių duomenų masyvo pradžią, jau įdėtas ir naujas narys.
+Šioje funkcijoje negalima naudoti metodų unshift ar splice, kurie leistų tiesiogiai įdėti narį į masyvo pradžią. 
+Užuomina: reikės leisti ciklą per masyvą ir visus masyvo narius perkelti per vieną poziciją į dešinę pusę, tam kad nulinis indeksas liktų tuščias ir galėtume į jį įdėti naują narį.
+
+3. Sukurti funkciją, kuri yra analogišką antrąjai funkcijai, tačiau ji priima dar vieną parametrą - indeksą, į kurią masyvo vietą reikia pridėti naują narį.
+
+
+
+
+
+1. Sukurti JS'o funkcijos flat analogą. Pačios flat funkcijos naudoti čia negalima. Ši funkcija priima masyvą ir jeigu masyvo nariai yra masyvai, juos "suploja" į vieną masyvą, pvz.:
+Jeigu funkcijai paduodame masyvą [1, [2], [3, [[4]]],[5,6]], tai funkcija jį turėtų grąžinti kaip [1, 2, 3, 4, 5, 6]  
+
+2. Sukurti funkciją, kuri priima masyvą su skaičių masyvais ir grąžina nuo didžiausio iki mažiausio skaičiaus surūšiuotą naują masyvą be pasikartojančių skaičių.
+Pavyzdžiui funkcija priima masyvą su skaičių masyvais: [[5, 1, 15], [3, 5, 1], [5, 100, 1]]
+Ir grąžina naują masyvą be pasikartojančių skaičių ir surūšiuotą nuo mažiausio iki didžiausio skaičiaus: [1, 3, 5, 15, 100]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
