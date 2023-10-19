@@ -1,0 +1,96 @@
+Užduotis:
+1. Sukurti HTML elementą, kurio id „numbers"
+
+2. JavaScript pagalba šio elemento viduje sukurti: h3 elementą ir du mygtukų elementus
+
+3. h3 elemento tekstas turėtų būti „5"
+
+4. Mygtukų tekstas turėtų būti „+" ir „-"
+
+5. Sukurti „click" (paspaudimo) event listener'ius abiems mygtukams.
+
+6. „-" mygtuko event listeneris turėtų iškviesti funkciją, kuri sumažina skaičių h3 elemente, o „+" mygtuko paspaudimas turėtų skaičių padidinti
+
+7. Jeigu skaitmuo h3 komponente yra mažesnis už du, tai „-" mygtukas turėtų patapti neveiksnus (disabled)- element.setAttribute('disabled', true) / element.removeAttribute('disabled')
+
+8. Jeigu skaitmuo h3 komponente yra 10, tai „+" mygtukas turėtų patapti neveiksnus (disabled)
+
+9. Jeigu skaitmuo yra 5 arba daugiau, tai jo spalva turėtų būti žalia. Kitu atveju - raudona.
+
+10. Sukurti naują mygtuką „Reset". Jį paspaudus viskas atstatoma į pradinę padėtį.
+
+11. Sukurti input elementą (number tipo) ir jame įrašytą skaičių pridėti kaip h3 elemento tekstą.
+
+12. Sukurti du naujus mygtukus, kurie:
+12.1. Prideda dvejetą prie esamos h3 elemento reikšmės.
+12.2. Atima dvejetą iš esamos h3 elemento reikšmės.
+
+13. Sukurti naują elementą (h4) ir jį pridėti į „numbers" elemento pabaigą.
+13.1. Šio elemento tekstas turėtų būti „Balai:"
+
+14. Sukurti naują elementą (ul) ir jį pridėti į „numbers" elemento pabaigą.
+14.1. Sukurti naują mygtuką, kurio teksta būtų „Įrašyti balą".
+14.2. Paspaudus šį mygtuką, reikia paimti reikšmę iš h3 elemento ir sukurti naują li elementą bei jį prepend'inti prie ul elemento.
+
+15. Į li elementą įrašytas balas turi būti tos pačios spalvos kaip ir h3 elemente.
+
+16.1. Sukurti mygtuką ir jį įdėti į li elementą.
+16.2. Paspaudus šį mygtuką, li elementas su balu turi būti ištrintas.
+
+
+
+
+
+
+1.	Ekrane sugeneruojamas atsitiktinis matematinis veiksmas, pvz.: 5 + 78 = ? arba 71 * 3 = ? arba 12 / 3 = ? ir t.t.
+    1.	Galimi veiksmai: daugyba, dalyba, sudėtis, atimtis
+    2.	Du atsitiktinai generuojami skaičiai turi būti sveikieji skaičiai ir negali būti mažesni už -99 ir didesni už 99
+    3.	Sugeneruotų veiksmų atsakymai turi būti sveikieji skaičiai (čia bus aktualu tik dalybai)
+
+2.	Žemiau sugeneruojami keturi mygtukai su galimais atsakymais.
+    1.	Vienas atsakymas yra teisingas
+    2.	Trys atsakymai yra neteisingi
+    3.	Atsakymai yra išdėstomi atsitiktine tvarka
+
+3.	Paspaudus atsakymo mygtuką:
+    1.	Parodomas teisingas atsakymas
+    2.	Parodoma ar žaidėjas atspejo
+    3.	Pašalinami prieš tai buvę mygtukai ir pats klausimas
+    4.	Sukuriamas naujas mygtukas - Next Question. Paspaudus šį mygtuką sugeneruojamas naujas klausimas
+
+4.	Iš viso turi sugeneruoti 10 klausimų. Ekrano viršuje rodo kelintą klausimą šiuo metu žaidėjas atsakinėja
+
+5.	Nuo 6 klausimo atsakymą reikia įrašyti pačiam žaidėjui. Tai reiškia kad nereikia generuoti atsakymų mygtukų, bet reikia sukurti number tipo 
+input elementą ir mygtuką, kurį paspaudus, būtų priimtas atsakymas.
+
+6.	Atsakius 10-tą klausimą parodoma kiek iš viso surinktą balų ir pasiūlomai žaisti iš naujo.
+
+7. Prideti laikmati
+
+
+
+1.	Baigus žaidimą, reikia iš localStorage išsitraukti praėjusių žaidimų rezultatų masyvą.
+2.	Šiame masyve esančius duomenis išrikiuoti nuo geriausio laiko iki blogiausio.
+3.	Ekrane išvesti geriausius rezultatus ir parodyti kurioje vietoje lieka baigto žaisti žaidimo rezultatas.
+4.	Atnaujinti rezultatų masyvą nauju rezultatu ir atnaujintą masyvą įdėti į localStorage.
+5.	BONUS: jeigu padarytum, kad baigus žaisti, atsirastų input laukelis, kuriame būtų galima įvesti savo vardą ir šį vardą atvaizduotų Leader Board'e, tai būtų dar geriau. Tik čia reikės kurti objektus, kurie turės properties name ir time/score ir juos dėti į masyva. Tai kadangi mes dar daug apie objektus nekalbėjome, gali būti jog nepavyks atlikti. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++

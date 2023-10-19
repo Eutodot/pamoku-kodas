@@ -245,19 +245,26 @@ console.log(task2(taskNumbersArr, newItem, 3))
 
 
 let arrOfArrays = [1, [2], [3, [[4]]],[5,6]]
-let num = 0
-function flatArrays(arr){
-    num++
-    if (num < 3){
-        console.log(num)
-    }
 
+console.log(arrOfArrays)
+function flatArrays(arr, previousArr){
+    let flatArr = previousArr ? previousArr : []
 
+    arr.forEach(item => {
+        if (Array.isArray(item)){
+            flatArrays(item, flatArr)
+        } else {
+            console.log(item)
+            flatArr.push(item)
+            // console.log('ooo')
+        }
+    })
+
+    return flatArr
 }
 
-flatArrays(arrOfArrays)
-
-
+console.log(flatArrays(arrOfArrays))
+// TODO: patikrinti del veikimo
 let unsortedArr = [[5, 1, 15], [3, 5, 1], [5, 100, 1]]
 
 function sortingArrays(unsortedArr){
