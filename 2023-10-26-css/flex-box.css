@@ -1,0 +1,61 @@
+.container {
+    background-color: lightgray;
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.blue {
+    background-color: blue;
+}
+.green {
+    background-color: green;
+}
+.red {
+    background-color: red;
+}
+
+.child {
+    height: 100px;
+    width: 100px;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

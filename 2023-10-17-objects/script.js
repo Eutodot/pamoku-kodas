@@ -50,11 +50,36 @@ let propertyName = 'age'
 console.log(studentObj[propertyName])
 
 
+// Objekto properties pakeitimas
+
+console.log(studentObj.age)
+studentObj.age = 30
+console.log(studentObj.age)
+
+console.log(studentObj["second name"])
+studentObj["second name"] = 'Peteris'
+console.log(studentObj["second name"])
 
 
 
+// Objekto properties sukurimas
+
+console.log(studentObj.isActive)
+studentObj.isActive = true
+console.log(studentObj.isActive)
 
 
+console.log(studentObj["birth city"])
+studentObj["birth city"] = 'Kaunas'
+console.log(studentObj["birth city"])
+
+
+
+// Objekto properties istrynimas
+
+console.log(studentObj["birth city"])
+delete studentObj["birth city"]
+console.log(studentObj["birth city"])
 
 
 

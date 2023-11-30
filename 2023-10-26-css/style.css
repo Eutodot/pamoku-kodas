@@ -1,0 +1,61 @@
+/* 
+CSS sintakse
+selector {
+    property: value;
+}
+*/
+
+h4 {
+    color: lime;
+}
+
+div h1 {
+    color: deeppink;
+}
+
+ol {
+    background-color: rgb(5, 126, 126);
+}
+
+li {
+    font-size: 20px;
+}
+
+ol li {
+    color: white;
+}
+
+li:first-child {
+    color: red;
+}
+
+ol li:first-child {
+    color: red;
+    background-color: blue;
+}
+
+.color-red {
+    color: red;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

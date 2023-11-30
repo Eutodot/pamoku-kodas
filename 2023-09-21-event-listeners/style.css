@@ -1,33 +1,111 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .current-game {
     font-weight: 700;
     font-size: 18px;
 }
 
+/* .classic-select-button {
+    background-color: saddlebrown;
+} */
+
+button.active {
+    background-color: lime;
+    color: black;
+}
+
+button.unactive {
+    background-color: red;
+    color: white;
+}
+
+
+body {
+    background: rgb(152,152,228);
+    background: linear-gradient(90deg, rgba(152,152,228,1) 0%, rgba(189,189,233,1) 100%);
+}
+
+.separate-button {
+    margin: 3px;
+    padding: 3px 8px;
+    font-size: 18px;
+    border-width: 3px;
+    border-radius: 5px;
+}
+
+.input-button {
+    padding: 3px 8px;
+    font-size: 18px;
+    border-width: 3px;
+    border-radius: 5px;
+}
+
+.answer-announcement {
+    font-weight: 700;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background-color: white;
+}
+
+.answer-announcement.correct-answer {
+    color: green;
+}
+
+.answer-announcement.wrong-answer {
+    color: red;
+}
+
+p {
+    font-size: 24px;
+}
+#content {
+    text-align: center;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h1 {
+    font-size: 50px;
+    font-style: italic;
+}
+
+h3 {
+    font-size: 28px;
+}
+
+li {
+    font-size: 22px;
+}
+
+.leaderboard-container {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.leaderboard-element {
+    width: 33%;
+}
 
 
 
+@media (max-width: 900px){
+    .leaderboard-element {
+        width: 50%;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@media (max-width: 650px){
+    .leaderboard-element {
+        width: 100%;
+    }
+}
 
 
 

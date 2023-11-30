@@ -12,7 +12,7 @@ problemCounter.id = 'problem'
 let headerElement = gameHeader(PROBLEMS_COUNT)
 let h3Element = document.createElement('h3')
 let classicLeaderboard = document.createElement('ol')
-
+let simpleLeaderboard = document.createElement('ol')
 let fastLeaderboard = document.createElement('ol')
 let OHKOLeaderboard = document.createElement('ol')
 structureElement.append(headerElement, h3Element)
@@ -21,42 +21,71 @@ contentElement.append(structureElement, answersElement)
 
 let answerElement = document.createElement('span')
 let nextQuestionButton = document.createElement('button')
+nextQuestionButton.classList.add('separate-button')
 nextQuestionButton.textContent = 'Next question?'
 
 let gameOverButton = document.createElement('button')
+gameOverButton.classList.add('separate-button')
 gameOverButton.textContent = 'Start new game'
 
 let answerAnnouncement = document.createElement('p')
+answerAnnouncement.classList.add('answer-announcement')
 
 let answerInput = document.createElement('input')
+answerInput.classList.add('input-button')
 answerInput.type = 'number'
 
 let checkAnswerInputButton = document.createElement('button')
+checkAnswerInputButton.classList.add('input-button')
 checkAnswerInputButton.textContent = 'Confirm'
 
 let selectedGameText = document.createElement('h3')
 selectedGameText.textContent = 'Select game mode:'
 let selectGameClassic = document.createElement('button')
+selectGameClassic.classList.add('separate-button')
 selectGameClassic.textContent = 'Classic'
 let selectGameSimple = document.createElement('button')
 selectGameSimple.textContent = 'Simple'
+selectGameSimple.classList.add('separate-button')
 let selectGameFast = document.createElement('button')
 selectGameFast.textContent = 'Any%'
+selectGameFast.classList.add('separate-button')
 let selectGameOHKO = document.createElement('button')
 selectGameOHKO.textContent = 'OHKO'
+selectGameOHKO.classList.add('separate-button')
+let selectGameCustom = document.createElement('button')
+selectGameCustom.textContent = 'Custom'
+selectGameCustom.classList.add('separate-button')
 let leaderboardButton = document.createElement('button')
 leaderboardButton.textContent = 'Leaderboards'
+leaderboardButton.classList.add('separate-button')
 let startGameButton = document.createElement('button')
+startGameButton.classList.add('separate-button')
 startGameButton.textContent = 'Start'
+startGameButton.classList.add('separate-button')
+let chooseClassicGameButton = document.createElement('button')
+chooseClassicGameButton.textContent = 'Classic'
+let chooseFastGameButton = document.createElement('button')
+chooseFastGameButton.textContent = 'Any%'
+let chooseOHKOGameButton = document.createElement('button')
+chooseOHKOGameButton.textContent = 'OHKO'
+let chooseEndlessGameButton = document.createElement('button')
+chooseEndlessGameButton.textContent = 'Endless'
+let customDivElement = document.createElement('div')
+let inputCustomConfig = document.createElement('input')
+inputCustomConfig.classList.add('input-button')
+inputCustomConfig.type = 'number'
 
-answersElement.append(selectedGameText, selectGameClassic, selectGameSimple, selectGameFast, selectGameOHKO, leaderboardButton)
+answersElement.append(selectedGameText, selectGameClassic, selectGameSimple, selectGameFast, selectGameOHKO, selectGameCustom, leaderboardButton)
 
-// let endGameButton = document.createElement('button')
-// endGameButton.textContent = 'End the game'
-// let endGameElement = document.createElement('div')
-// endGameElement.append(endGameButton)
+let endGameButton = document.createElement('button')
+endGameButton.textContent = 'End the game'
+endGameButton.classList.add('separate-button')
+let endGameElement = document.createElement('div')
+endGameElement.append(endGameButton)
 let mainMenuButton = document.createElement('button')
 mainMenuButton.textContent = 'Return to main menu'
+mainMenuButton.classList.add('separate-button')
 
 let timerElement = document.createElement('p')
 let time = 0
@@ -77,6 +106,14 @@ let OHKOGameSelected = false
 let interval
 let countdown
 
+let customGameSelected = false
+let addSelected = false
+let subtractSelected = false
+let multiplySelected = false
+let divideSelected = false
+let endlessGameSelected = false
+let classicGameSelected = false
+let customGameSymbols = []
 
 function generateRngNumber(){
     return Math.floor(Math.random() * (100 + 99) - 99)
@@ -103,20 +140,37 @@ function generateRngSymbol(decideRngSymbol){
 }
 
 function generateRngProblem(rngNumber1, rngNumber2, decideRngSymbol){
+    let randomCustomSymbol = symbol
+    if (customGameSelected){
+        randomCustomSymbol = customGameSymbols[(Math.floor(Math.random() * (customGameSymbols.length)))]
+        
+        if (randomCustomSymbol == '+'){
+            correctAnswer = Number(rngNumber1) + Number(rngNumber2)
 
-    if (decideRngSymbol == '+'){
-        correctAnswer = Number(rngNumber1) + Number(rngNumber2)
+        } else if (randomCustomSymbol == '-'){
+            correctAnswer = Number(rngNumber1) - Number(rngNumber2)
 
-    } else if (decideRngSymbol == '-'){
-        correctAnswer = Number(rngNumber1) - Number(rngNumber2)
+        } else if (randomCustomSymbol == '*'){
+            correctAnswer = Number(rngNumber1) * Number(rngNumber2)
 
-    } else if (decideRngSymbol == '*'){
-        correctAnswer = Number(rngNumber1) * Number(rngNumber2)
+        } else if (randomCustomSymbol == '/'){
+            correctAnswer = Number(rngNumber1) / Number(rngNumber2)
+        }
+        
+    } else {
+        if (decideRngSymbol == '+'){
+            correctAnswer = Number(rngNumber1) + Number(rngNumber2)
 
-    } else if (decideRngSymbol == '/'){
-        correctAnswer = Number(rngNumber1) / Number(rngNumber2)
+        } else if (decideRngSymbol == '-'){
+            correctAnswer = Number(rngNumber1) - Number(rngNumber2)
+
+        } else if (decideRngSymbol == '*'){
+            correctAnswer = Number(rngNumber1) * Number(rngNumber2)
+
+        } else if (decideRngSymbol == '/'){
+            correctAnswer = Number(rngNumber1) / Number(rngNumber2)
+        }
     }
-
 
     if (rngNumber1 < 0){
         rngNumber1 = `(${rngNumber1})`
@@ -126,7 +180,7 @@ function generateRngProblem(rngNumber1, rngNumber2, decideRngSymbol){
     }
     
     answerElement.textContent = '?'
-    h3Element.textContent = `${rngNumber1} ${symbol} ${rngNumber2} = `
+    h3Element.textContent = `${rngNumber1} ${randomCustomSymbol} ${rngNumber2} = `
     h3Element.append(answerElement)
 
     generateAnswers(correctAnswer, generateWrongAnswers(correctAnswer))
@@ -149,7 +203,7 @@ function generateAnswers(correctAnswer, wrongAnswers){
     let allAnswers = wrongAnswers.toSpliced(correctAnswerIndex, 0, correctAnswer)
     allAnswers.forEach((answer, index) => {
         let answersButton = document.createElement('button')
-
+        answersButton.classList.add('separate-button')
         answersButton.textContent = answer
         
         if (index == correctAnswerIndex){
@@ -170,7 +224,8 @@ function correctAnswerHandler(){
         clearAnswerElement()
 
         answerAnnouncement.textContent = 'Correct!'
-        answerAnnouncement.style.color = 'green'
+        answerAnnouncement.classList.remove('wrong-answer')
+        answerAnnouncement.classList.add('correct-answer')
         answersElement.append(answerAnnouncement, nextQuestionButton)
         alreadyExists = true
         guessIsCorrect = true
@@ -184,7 +239,8 @@ function wrongAnswerHandler(selectedAnswer){
         clearAnswerElement()
 
         answerAnnouncement.textContent = `Your answer (${selectedAnswer}) was wrong!`
-        answerAnnouncement.style.color = 'red'
+        answerAnnouncement.classList.remove('correct-answer')
+        answerAnnouncement.classList.add('wrong-answer')
         answersElement.append(answerAnnouncement, nextQuestionButton)
         alreadyExists = true
     
@@ -204,13 +260,17 @@ function wrongAnswerHandler(selectedAnswer){
             let gameOverText = 'Game over.'
             
             gameOverAnnouncement.textContent = `${gameOverText} Your answer (${selectedAnswer}) was wrong! Correct answer was ${correctAnswer} Problems solved: ${problemsSolved} Time: ${time.toFixed(1)}`
+            gameOverAnnouncement.classList.add('end-screen-text')
             answersElement.append(gameOverAnnouncement, gameOverButton, mainMenuButton)
 
-
+            if (!customGameSelected){
             createOHKOLeaderboard(problemsSolved)
+            }
         }
     }
 }
+
+
 
 function startTimer(){
     // time += 0.1
@@ -236,7 +296,8 @@ function startCountdown(){
         let gameOverAnnouncement = document.createElement('p')
         let gameOverText = 'Game over.'
         
-        gameOverAnnouncement.textContent = `${gameOverText} Problems solved: ${problemsSolved}`
+        gameOverAnnouncement.textContent = `${gameOverText} Problems solved: ${problemsSolved} Correct answers: ${correctGuesses}  Wrong answers: ${wrongGuesses}`
+        gameOverAnnouncement.classList.add('end-screen-text')
         answersElement.append(gameOverAnnouncement, gameOverButton, mainMenuButton)
 
 
@@ -287,13 +348,18 @@ function startSelectedGame(){
     headerElement.after(timerElement, problemCounter)
 }
 
+
+
 function createClassicLeaderboard(finalTime){
 
     let joinLeaderboard = document.createElement('p')
     joinLeaderboard.textContent = 'Write your username to be in the leaderboards. Username must be more than 2 and less than 7 characters!'
+    joinLeaderboard.classList.add('end-screen-text')
     let usernameInput = document.createElement('input')
+    usernameInput.classList.add('input-button')
     usernameInput.maxLength = 6 
     let usernameConfirmButton = document.createElement('button')
+    usernameConfirmButton.classList.add('input-button')
     usernameConfirmButton.textContent = 'Confirm'
 
     answersElement.append(joinLeaderboard, usernameInput, usernameConfirmButton)
@@ -313,7 +379,7 @@ function createClassicLeaderboard(finalTime){
             let gameId = Math.random()
             let gameStats = {
                 name: usernameInput.value,
-                time: finalTime,
+                score: finalTime,
                 id: gameId,
             }
             classicLeaderboardArr.push(gameStats)
@@ -322,26 +388,27 @@ function createClassicLeaderboard(finalTime){
                 classicLeaderboardArr.splice(-1, 1)
             }
 
-            classicLeaderboardArr.sort((a, b) => a.time - b.time)
+            classicLeaderboardArr.sort((a, b) => a.score - b.score)
             localStorage.setItem('classicLeaderboard', JSON.stringify(classicLeaderboardArr))
 
-            let gamePlace = ''
-            classicLeaderboardArr.forEach((place, index) => {
-                console.log(place)
-                console.log(place.id)
-                let liElement = document.createElement('li')
+            
+            let gamePlace = createLeaderboard(classicLeaderboardArr, classicLeaderboard, 's', gameId)
+            // classicLeaderboardArr.forEach((place, index) => {
+            //     // console.log(place)
+            //     // console.log(place.id)
+            //     let liElement = document.createElement('li')
                 
-                liElement.textContent = `${place.name} ${place.time.toFixed(1)}s`
+            //     liElement.textContent = `${place.name} ${place.score.toFixed(1)}s`
                 
-                classicLeaderboard.append(liElement)
-                if (gameId == place.id){
-                    liElement.classList.add('current-game')
-                    gamePlace = index + 1
-                }
-            })
+            //     classicLeaderboard.append(liElement)
+            //     if (gameId == place.id){
+            //         liElement.classList.add('current-game')
+            //         gamePlace = index + 1
+            //     }
+            // })
 
             let leaderboardText = document.createElement('p')
-            leaderboardText.textContent = `You're ${gamePlace} out of ${classicLeaderboardArr.length} in the leaderboard`
+            leaderboardText.textContent = `You're ${gamePlace} out of ${classicLeaderboardArr.length} in the leaderboard:`
             // console.log(classicLeaderboardArr)
             answersElement.append(leaderboardText, classicLeaderboard)
         }
@@ -352,9 +419,12 @@ function createSimpleLeaderboard(finalTime){
 
     let joinLeaderboard = document.createElement('p')
     joinLeaderboard.textContent = 'Write your username to be in the leaderboards. Username must be more than 2 and less than 7 characters!'
+    joinLeaderboard.classList.add('end-screen-text')
     let usernameInput = document.createElement('input')
+    usernameInput.classList.add('input-button')
     usernameInput.maxLength = 6 
     let usernameConfirmButton = document.createElement('button')
+    usernameConfirmButton.classList.add('input-button')
     usernameConfirmButton.textContent = 'Confirm'
 
     answersElement.append(joinLeaderboard, usernameInput, usernameConfirmButton)
@@ -371,13 +441,15 @@ function createSimpleLeaderboard(finalTime){
 
             let simpleLeaderboardLocalArr = localStorage.getItem('simpleLeaderboard')
             let simpleLeaderboardArr = simpleLeaderboardLocalArr ? JSON.parse(simpleLeaderboardLocalArr) : []
+            let gameId = Math.random()
             let gameStats = {
                 name: usernameInput.value,
-                time: finalTime,
+                score: finalTime,
+                id: gameId,
             }
             simpleLeaderboardArr.push(gameStats)
 
-            simpleLeaderboardArr.sort((a, b) => a.time - b.time)
+            simpleLeaderboardArr.sort((a, b) => a.score - b.score)
 
             if (simpleLeaderboardArr.length > 100){
                 simpleLeaderboardArr = simpleLeaderboardArr.slice(0, 100)
@@ -385,17 +457,24 @@ function createSimpleLeaderboard(finalTime){
 
             localStorage.setItem('simpleLeaderboard', JSON.stringify(simpleLeaderboardArr))
 
-            let simpleLeaderboard = document.createElement('ol')
-            simpleLeaderboardArr.forEach((place) => {
-                let liElement = document.createElement('li')
-                
-                liElement.textContent = `${place.name} ${place.time.toFixed(1)}s`
-                
-                simpleLeaderboard.append(liElement)
-            })
+            
+            let gamePlace = createLeaderboard(simpleLeaderboardArr, simpleLeaderboard, 's', gameId)
+            // simpleLeaderboardArr.forEach((place, index) => {
+            // // console.log(place)
+            // // console.log(place.id)
+            // let liElement = document.createElement('li')
+            
+            // liElement.textContent = `${place.name} ${place.score.toFixed(1)}s`
+            
+            // simpleLeaderboard.append(liElement)
+            // if (gameId == place.id){
+            //     liElement.classList.add('current-game')
+            //     gamePlace = index + 1
+            // }
+            // })
             
             let leaderboardText = document.createElement('p')
-            leaderboardText.textContent = `Top ${simpleLeaderboardArr.length} leaderboard:`
+            leaderboardText.textContent = `You're ${gamePlace} out of ${simpleLeaderboardArr.length} in the leaderboard:`
             // console.log(simpleLeaderboardArr)
             answersElement.append(leaderboardText, simpleLeaderboard)
         }
@@ -406,9 +485,12 @@ function createFastLeaderboard(problems){
 
     let joinLeaderboard = document.createElement('p')
     joinLeaderboard.textContent = 'Write your username to be in the leaderboards. Username must be more than 2 and less than 7 characters!'
+    joinLeaderboard.classList.add('end-screen-text')
     let usernameInput = document.createElement('input')
+    usernameInput.classList.add('input-button')
     usernameInput.maxLength = 6 
     let usernameConfirmButton = document.createElement('button')
+    usernameConfirmButton.classList.add('input-button')
     usernameConfirmButton.textContent = 'Confirm'
 
     answersElement.append(joinLeaderboard, usernameInput, usernameConfirmButton)
@@ -425,9 +507,11 @@ function createFastLeaderboard(problems){
 
             let fastLeaderboardLocalArr = localStorage.getItem('fastLeaderboard')
             let fastLeaderboardArr = fastLeaderboardLocalArr ? JSON.parse(fastLeaderboardLocalArr) : []
+            let gameId = Math.random()
             let gameStats = {
                 name: usernameInput.value,
-                solved: problems,
+                score: problems,
+                id: gameId,
             }
             fastLeaderboardArr.push(gameStats)
 
@@ -435,19 +519,27 @@ function createFastLeaderboard(problems){
                 fastLeaderboardArr.splice(-1, 1)
             }
 
-            fastLeaderboardArr.sort((a, b) => b.solved - a.solved)
+            fastLeaderboardArr.sort((a, b) => b.score - a.score)
             localStorage.setItem('fastLeaderboard', JSON.stringify(fastLeaderboardArr))
 
-            fastLeaderboardArr.forEach((place) => {
-                let liElement = document.createElement('li')
-                
-                liElement.textContent = `${place.name} ${place.solved}`
-                
-                fastLeaderboard.append(liElement)
-            })
             
+            let gamePlace = createLeaderboard(fastLeaderboardArr, fastLeaderboard, 'problems', gameId)
+            // fastLeaderboardArr.forEach((place, index) => {
+            // // console.log(place)
+            // // console.log(place.id)
+            // let liElement = document.createElement('li')
+            
+            // liElement.textContent = `${place.name} ${place.score} solved`
+            
+            // fastLeaderboard.append(liElement)
+            // if (gameId == place.id){
+            //     liElement.classList.add('current-game')
+            //     gamePlace = index + 1
+            // }
+            // })
+                    
             let leaderboardText = document.createElement('p')
-            leaderboardText.textContent = `Top ${fastLeaderboardArr.length} leaderboard:`
+            leaderboardText.textContent = `You're ${gamePlace} out of ${fastLeaderboardArr.length} in the leaderboard:`
             // console.log(fastLeaderboardArr)
             answersElement.append(leaderboardText, fastLeaderboard)
         }
@@ -455,18 +547,21 @@ function createFastLeaderboard(problems){
 }
 
 function createOHKOLeaderboard(problems){
-
+    
     let joinLeaderboard = document.createElement('p')
     joinLeaderboard.textContent = 'Write your username to be in the leaderboards. Username must be more than 2 and less than 7 characters!'
+    joinLeaderboard.classList.add('end-screen-text')
     let usernameInput = document.createElement('input')
+    usernameInput.classList.add('input-button')
     usernameInput.maxLength = 6 
     let usernameConfirmButton = document.createElement('button')
+    usernameConfirmButton.classList.add('input-button')
     usernameConfirmButton.textContent = 'Confirm'
 
     answersElement.append(joinLeaderboard, usernameInput, usernameConfirmButton)
 
     usernameConfirmButton.addEventListener('click', () => {
-        if (usernameInput.value < 3 || usernameInput.value > 6){
+        if (String(usernameInput.value) < 3 || String(usernameInput.value) > 6){
             joinLeaderboard.textContent = 'Username must be more than 2 and less than 7 characters!'
             joinLeaderboard.style.color = 'red'
         } else {
@@ -477,9 +572,11 @@ function createOHKOLeaderboard(problems){
 
             let OHKOLeaderboardLocalArr = localStorage.getItem('OHKOLeaderboard')
             let OHKOLeaderboardArr = OHKOLeaderboardLocalArr ? JSON.parse(OHKOLeaderboardLocalArr) : []
+            let gameId = Math.random()
             let gameStats = {
                 name: usernameInput.value,
-                solved: problems,
+                score: problems,
+                id: gameId,
             }
             OHKOLeaderboardArr.push(gameStats)
 
@@ -487,27 +584,130 @@ function createOHKOLeaderboard(problems){
                 OHKOLeaderboardArr.splice(-1, 1)
             }
 
-            OHKOLeaderboardArr.sort((a, b) => b.solved - a.solved)
+            OHKOLeaderboardArr.sort((a, b) => b.score - a.score)
             localStorage.setItem('OHKOLeaderboard', JSON.stringify(OHKOLeaderboardArr))
 
-            OHKOLeaderboardArr.forEach((place) => {
-                let liElement = document.createElement('li')
-                
-                liElement.textContent = `${place.name} ${place.solved}`
-                
-                OHKOLeaderboard.append(liElement)
-            })
             
-            let leaderboardText = document.createElement('p')
-            leaderboardText.textContent = `Top ${OHKOLeaderboardArr.length} leaderboard:`
-            // console.log(OHKOLeaderboardArr)
-            answersElement.append(leaderboardText, OHKOLeaderboard)
+            let gamePlace = createLeaderboard(OHKOLeaderboardArr, OHKOLeaderboard, 'problems', gameId)
+            // OHKOLeaderboardArr.forEach((place, index) => {
+            // // console.log(place)
+            // // console.log(place.id)
+            // let liElement = document.createElement('li')
+            
+            // liElement.textContent = `${place.name} ${place.score} solved`
+            
+            // OHKOLeaderboard.append(liElement)
+            // if (gameId == place.id){
+            //     liElement.classList.add('current-game')
+            //     gamePlace = index + 1
+            // }
+            // })
+            
+            // let leaderboardText = document.createElement('p')
+            // leaderboardText.textContent = `You're ${gamePlace} out of ${OHKOLeaderboardArr.length} in the leaderboard:`
+            // // console.log(OHKOLeaderboardArr)
+            // answersElement.append(leaderboardText, OHKOLeaderboard)
         }
     })
 }
 
-function createLeaderboard(){
+function createLeaderboard(leaderboardArr, leaderboard, units, id){
+    let gamePlace = ''
+    leaderboardArr.forEach((place, index) => {
+        // console.log(place)
+        // console.log(place.id)
+        let liElement = document.createElement('li')
+        
+        if (units == 'problems'){
+            liElement.textContent = `${place.name} ${place.score} ${units}`
+        } else {
+            liElement.textContent = `${place.name} ${place.score.toFixed(1)}${units}`
+        }
+        
+        leaderboard.append(liElement)
+        if (id == place.id){
+            liElement.classList.add('current-game')
+            gamePlace = index + 1
+        }
+    })
+    let leaderboardText = document.createElement('p')
+    leaderboardText.textContent = `You're ${gamePlace} out of ${leaderboardArr.length} in the leaderboard:`
+    answersElement.append(leaderboardText, leaderboard)
+}
 
+function clearLeaderboards(){
+    classicLeaderboard.textContent = ''
+    simpleLeaderboard.textContent = ''
+    fastLeaderboard.textContent = ''
+    OHKOLeaderboard.textContent = ''
+}
+
+function createLeaderBoardsForLeaderboard(title, units, text){
+    let localArr = localStorage.getItem(title)
+    let arr = localArr ? JSON.parse(localArr) : []
+    
+    let wrapper = document.createElement('div')
+    wrapper.classList.add('leaderboard-element')
+    let list = document.createElement('ol')
+    arr.forEach((place) => {
+        let liElement = document.createElement('li')
+        
+        if (units == 'problems'){
+            liElement.textContent = `${place.name} ${place.score} ${units}`
+        } else {
+            liElement.textContent = `${place.name} ${place.score.toFixed(1)}${units}`
+        }
+        
+        list.append(liElement)
+    })
+
+    let textElement = document.createElement('p')
+    textElement.textContent = text
+    wrapper.append(textElement, list)
+    return wrapper
+}
+
+function unactiveAllOptions(){
+    endlessGameSelected = false
+    chooseEndlessGameButton.classList.remove('active')
+    chooseEndlessGameButton.classList.add('unactive')
+
+    classicGameSelected = false
+    chooseClassicGameButton.classList.remove('active')
+    chooseClassicGameButton.classList.add('unactive')
+
+    fastGameSelected = false
+    chooseFastGameButton.classList.remove('active')
+    chooseFastGameButton.classList.add('unactive')
+
+    OHKOGameSelected = false
+    chooseOHKOGameButton.classList.remove('active')
+    chooseOHKOGameButton.classList.add('unactive')
+}
+
+function customizeGameMode(){
+    let customizeGameModeText = document.createElement('p')
+    if (classicGameSelected){
+        customizeGameModeText.textContent = 'Type in the number of questions:'
+    } else if (fastGameSelected){
+        customizeGameModeText.textContent = 'Type in the length of the game (in seconds):'
+    }
+    customDivElement.append(customizeGameModeText, inputCustomConfig)
+}
+
+function decideCustomSymbol(){
+    if (addSelected){
+        customGameSymbols.push('+')
+    }
+    if (subtractSelected){
+        customGameSymbols.push('-')
+    }
+    if (multiplySelected){
+        customGameSymbols.push('*')
+    }
+    if (divideSelected){
+        customGameSymbols.push('/')
+    }
 }
 
 function init(){
@@ -550,10 +750,189 @@ function init(){
     })
 
 
+    selectGameCustom.addEventListener('click', () => {
+        clearAnswerElement()
+        customGameSelected = true
+
+        let chooseMathematicsText = document.createElement('p')
+        chooseMathematicsText.textContent = 'Choose wanted mathematical operations:'
+
+        let chooseAddButton = document.createElement('button')
+        chooseAddButton.textContent = 'Adding'
+        chooseAddButton.classList.add('unactive')
+        chooseAddButton.addEventListener('click', () => {
+            if (addSelected){
+                addSelected = false
+                chooseAddButton.classList.remove('active')
+                chooseAddButton.classList.add('unactive')
+            } else {
+                addSelected = true
+                chooseAddButton.classList.remove('unactive')
+                chooseAddButton.classList.add('active')
+            }
+        })
+
+        let chooseSubtractButton = document.createElement('button')
+        chooseSubtractButton.textContent = 'Subtracting'
+        chooseSubtractButton.classList.add('unactive')
+        chooseSubtractButton.addEventListener('click', () => {
+            if (subtractSelected){
+                subtractSelected = false
+                chooseSubtractButton.classList.remove('active')
+                chooseSubtractButton.classList.add('unactive')
+            } else {
+                subtractSelected = true
+                chooseSubtractButton.classList.remove('unactive')
+                chooseSubtractButton.classList.add('active')
+            }
+        })
+
+        let chooseMultiplyButton = document.createElement('button')
+        chooseMultiplyButton.textContent = 'Multiplying'
+        chooseMultiplyButton.classList.add('unactive')
+        chooseMultiplyButton.addEventListener('click', () => {
+            if (multiplySelected){
+                multiplySelected = false
+                chooseMultiplyButton.classList.remove('active')
+                chooseMultiplyButton.classList.add('unactive')
+            } else {
+                multiplySelected = true
+                chooseMultiplyButton.classList.remove('unactive')
+                chooseMultiplyButton.classList.add('active')
+            }
+        })
+
+        let chooseDivideButton = document.createElement('button')
+        chooseDivideButton.textContent = 'Dividing'
+        chooseDivideButton.classList.add('unactive')
+        chooseDivideButton.addEventListener('click', () => {
+            if (divideSelected){
+                divideSelected = false
+                chooseDivideButton.classList.remove('active')
+                chooseDivideButton.classList.add('unactive')
+            } else {
+                divideSelected = true
+                chooseDivideButton.classList.remove('unactive')
+                chooseDivideButton.classList.add('active')
+            }
+        })
+
+        let chooseTimePenaltyText = document.createElement('p')
+        chooseTimePenaltyText.textContent = 'Time penalty(in seconds):'
+
+        let chooseGameTypeText = document.createElement('p')
+        chooseGameTypeText.textContent = 'Choose wanted game mode:'
+
+        
+        chooseClassicGameButton.classList.add('unactive')
+        chooseClassicGameButton.addEventListener('click', () => {
+            if (classicGameSelected){
+                classicGameSelected = false
+                chooseClassicGameButton.classList.remove('active')
+                chooseClassicGameButton.classList.add('unactive')
+                customDivElement.textContent = ''
+            } else {
+                unactiveAllOptions()
+                classicGameSelected = true
+                chooseClassicGameButton.classList.remove('unactive')
+                chooseClassicGameButton.classList.add('active')
+                customDivElement.textContent = ''
+                customizeGameMode()
+            }
+        })
+
+        
+        chooseFastGameButton.classList.add('unactive')
+        chooseFastGameButton.addEventListener('click', () => {
+            if (fastGameSelected){
+                fastGameSelected = false
+                chooseFastGameButton.classList.remove('active')
+                chooseFastGameButton.classList.add('unactive')
+                customDivElement.textContent = ''
+            } else {
+                unactiveAllOptions()
+                fastGameSelected = true
+                chooseFastGameButton.classList.remove('unactive')
+                chooseFastGameButton.classList.add('active')
+                customDivElement.textContent = ''
+                customizeGameMode()
+            }
+        })
+
+        
+        chooseOHKOGameButton.classList.add('unactive')
+        chooseOHKOGameButton.addEventListener('click', () => {
+            if (OHKOGameSelected){
+                OHKOGameSelected = false
+                chooseOHKOGameButton.classList.remove('active')
+                chooseOHKOGameButton.classList.add('unactive')
+            } else {
+                unactiveAllOptions()
+                OHKOGameSelected = true
+                chooseOHKOGameButton.classList.remove('unactive')
+                chooseOHKOGameButton.classList.add('active')
+                customDivElement.textContent = ''
+            }
+        })
+
+        
+        chooseEndlessGameButton.classList.add('unactive')
+        chooseEndlessGameButton.addEventListener('click', () => {
+            if (endlessGameSelected){
+                endlessGameSelected = false
+                chooseEndlessGameButton.classList.remove('active')
+                chooseEndlessGameButton.classList.add('unactive')
+            } else {
+                unactiveAllOptions()
+                endlessGameSelected = true
+                chooseEndlessGameButton.classList.remove('unactive')
+                chooseEndlessGameButton.classList.add('active')
+                customDivElement.textContent = ''
+            }
+        })
+        
+        
+
+        let startGameDivElement = document.createElement('div')
+        startGameDivElement.append(startGameButton, mainMenuButton)
+
+        answersElement.append(chooseMathematicsText, chooseAddButton, chooseSubtractButton, chooseMultiplyButton, chooseDivideButton, chooseGameTypeText, chooseClassicGameButton, chooseFastGameButton, chooseOHKOGameButton, chooseEndlessGameButton, customDivElement, startGameDivElement)
+    })
+
+    leaderboardButton.addEventListener('click', () => {
+        clearAnswerElement()
+
+        let classicLeaderboardElement = createLeaderBoardsForLeaderboard('classicLeaderboard', 's', `Classic Mode leaderboard:`)
+        
+        let simpleLeaderboardElement = createLeaderBoardsForLeaderboard('simpleLeaderboard', 's', `Simple Mode leaderboard:`)
+        
+        let fastLeaderboardElement = createLeaderBoardsForLeaderboard('fastLeaderboard', 'problems', `Any% Mode leaderboard:`)
+        
+        let OHKOLeaderboardElement = createLeaderBoardsForLeaderboard('OHKOLeaderboard', 'problems', `OHKO Mode leaderboard:`)
+        
+        let leaderboardContainer = document.createElement('div')
+        leaderboardContainer.classList.add('leaderboard-container')
+        leaderboardContainer.append(classicLeaderboardElement, simpleLeaderboardElement, fastLeaderboardElement, OHKOLeaderboardElement)
+
+        answersElement.append(mainMenuButton, leaderboardContainer)
+    })
+    
+
     startGameButton.addEventListener('click', () => {
+        if (fastGameSelected && customGameSelected){
+            time = inputCustomConfig.value
+        }
+        
+        if (customGameSelected){
+            decideCustomSymbol()
+            startSelectedGame()
+        } else {
+            startSelectedGame()
+        }
 
-        startSelectedGame()
-
+        if (endlessGameSelected && customGameSelected){
+            contentElement.append(endGameElement)
+        }
     })
 
 
@@ -568,13 +947,46 @@ function init(){
             wrongGuesses++
         }
 
-        if (OHKOGameSelected || fastGameSelected){
+        if (OHKOGameSelected || fastGameSelected || endlessGameSelected){
             let randomProblemType = Math.floor(Math.random() * 3)
             if (randomProblemType == 0 || randomProblemType == 1){
                 
-                generateNewInputProblem()
+                generateNewProblem()
                 
             } else if (randomProblemType == 2){
+
+                generateNewInputProblem()
+
+            }
+        } else if (customGameSelected){
+            if (gamesLeft >= inputCustomConfig.value){
+        
+                clearAnswerElement()
+                
+                clearInterval(interval)
+                problemCounter.textContent = ''
+                h3Element.textContent = ''
+                let gameOverAnnouncement = document.createElement('p')
+                let gameOverText = 'Game over.'
+        
+                if (correctGuesses == inputCustomConfig.value){
+                    gameOverText = 'Splendid!'
+                } else if (wrongGuesses == inputCustomConfig.value){
+                    gameOverText = 'Horrible!'
+                }
+                
+                let timePenalty = wrongGuesses * TIME_PENALTY_MULTIPLIER
+                let finalTime = time + timePenalty
+                gameOverAnnouncement.textContent = `${gameOverText} Correct answers: ${correctGuesses}  Wrong answers: ${wrongGuesses} Time: ${time.toFixed(1)} Time penalty: ${timePenalty} Final time: ${finalTime.toFixed(1)}`
+                gameOverAnnouncement.classList.add('end-screen-text')
+                answersElement.append(gameOverAnnouncement, gameOverButton, mainMenuButton)
+
+            } else if (gamesLeft >= INPUT_START){
+
+                generateNewInputProblem()
+
+            }
+            else {
 
                 generateNewProblem()
 
@@ -599,6 +1011,7 @@ function init(){
                 let timePenalty = wrongGuesses * TIME_PENALTY_MULTIPLIER
                 let finalTime = time + timePenalty
                 gameOverAnnouncement.textContent = `${gameOverText} Correct answers: ${correctGuesses}  Wrong answers: ${wrongGuesses} Time: ${time.toFixed(1)} Time penalty: ${timePenalty} Final time: ${finalTime.toFixed(1)}`
+                gameOverAnnouncement.classList.add('end-screen-text')
                 answersElement.append(gameOverAnnouncement, gameOverButton, mainMenuButton)
 
                 if (simpleGameSelected){
@@ -607,7 +1020,7 @@ function init(){
 
                 } else {
 
-                    createClassicLeaderboard(finalTime)
+                createClassicLeaderboard(finalTime)
 
                 }
             } else if (gamesLeft >= INPUT_START){
@@ -624,13 +1037,35 @@ function init(){
     })
     
 
+    endGameButton.addEventListener('click', () => {
+        clearAnswerElement()
+        endGameElement.remove()
+        clearInterval(interval)
+        problemCounter.textContent = ''
+        h3Element.textContent = ''
+        let gameOverAnnouncement = document.createElement('p')
+        let gameOverText = 'Game over.'
+
+        if (correctGuesses == PROBLEMS_COUNT){
+            gameOverText = 'Splendid!'
+        } else if (wrongGuesses == PROBLEMS_COUNT){
+            gameOverText = 'Horrible!'
+        }
+        
+        let timePenalty = wrongGuesses * TIME_PENALTY_MULTIPLIER
+        let finalTime = time + timePenalty
+        gameOverAnnouncement.textContent = `${gameOverText} Correct answers: ${correctGuesses}  Wrong answers: ${wrongGuesses} Time: ${time.toFixed(1)} Time penalty: ${timePenalty} Final time: ${finalTime.toFixed(1)}`
+        gameOverAnnouncement.classList.add('end-screen-text')
+        answersElement.append(gameOverAnnouncement, gameOverButton, mainMenuButton)
+    })
+
     gameOverButton.addEventListener('click', () => {
         gamesLeft = 0
         correctGuesses = 0
         wrongGuesses = 0
         problemCounter.textContent = `Problem ${gamesLeft + 1}`
         
-        
+        clearLeaderboards()
         generateNewProblem()
 
         if (endlessGameSelected){
@@ -654,14 +1089,23 @@ function init(){
         simpleGameSelected = false
         fastGameSelected = false
         OHKOGameSelected = false
+        customGameSelected = false
+        addSelected = false
+        subtractSelected = false
+        multiplySelected = false
+        divideSelected = false
+        endlessGameSelected = false
+        classicGameSelected = false
+        customGameSymbols = []
         problemCounter.textContent = `Problem ${gamesLeft + 1}`
         selectedGameText.textContent = 'Select game mode:'
 
+        clearLeaderboards()
         clearAnswerElement()
         timerElement.remove()
         problemCounter.remove()
         // endGameElement.remove()
-        answersElement.append(selectedGameText, selectGameClassic, selectGameSimple, selectGameFast, selectGameOHKO, leaderboardButton)
+        answersElement.append(selectedGameText, selectGameClassic, selectGameSimple, selectGameFast, selectGameOHKO, selectGameCustom, leaderboardButton)
     })
 
     checkAnswerInputButton.addEventListener('click', (event) => {
@@ -701,21 +1145,6 @@ function renderQuiz(){
 
     let answerAnnouncement = document.createElement('p')
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -76,6 +76,14 @@ input elementą ir mygtuką, kurį paspaudus, būtų priimtas atsakymas.
 5.	BONUS: jeigu padarytum, kad baigus žaisti, atsirastų input laukelis, kuriame būtų galima įvesti savo vardą ir šį vardą atvaizduotų Leader Board'e, tai būtų dar geriau. Tik čia reikės kurti objektus, kurie turės properties name ir time/score ir juos dėti į masyva. Tai kadangi mes dar daug apie objektus nekalbėjome, gali būti jog nepavyks atlikti. 
 
 
+https://github.com/frontendmentorio/testimonials-grid-section
+
+
+https://github.com/frontendmentorio/results-summary-component/
+
+https://github.com/frontendmentorio/blogr-landing-page
+
+https://cssgridgarden.com/
 
 
 
@@ -93,4 +101,53 @@ input elementą ir mygtuką, kurį paspaudus, būtų priimtas atsakymas.
 
 
 
-+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

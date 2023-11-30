@@ -1,0 +1,62 @@
+h1 {
+    color: rgb(240, 230, 140) !important;
+}
+
+h1.header#header-id {
+    color: springgreen;
+}
+
+.header#header-id {
+    color: navy;
+}
+
+h1#header-id {
+    color: silver;
+}
+
+#header-id {
+    color: darkgoldenrod;
+}
+.header.header {
+    color: fuchsia;
+}
+
+h1.header {
+    color: tomato;
+}
+
+.header {
+    color: teal;
+}
+
+html head + body h1 {
+    color: yellow;
+}
+
+html body h1 {
+    color: blue;
+}
+body h1 {
+    color: pink;
+}
+
+h1 {
+    color: red;
+    color: green;
+}
+
+h1 {
+    color: brown;
+}
+
+
+
+
+
+
+
+
+
+
+
+
