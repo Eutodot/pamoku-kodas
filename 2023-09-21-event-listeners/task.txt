@@ -85,8 +85,9 @@ https://github.com/frontendmentorio/blogr-landing-page
 
 https://cssgridgarden.com/
 
+https://github.com/frontendmentorio/huddle-landing-page-with-alternating-feature-blocks
 
-
+https://www.figma.com/file/8VVo6AmUnbJ1GCqtj5aQyX/NFT-Startup-Landing-Page-Private?type=design&node-id=2%3A685&mode=dev
 
 
 

@@ -1,0 +1,47 @@
+@use "variables/colors";
+@use "variables/spacings";
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: hsl(0, 0%, 95%);
+    margin: 0;
+    font-family: 'Overpass', sans-serif;
+}
+
+.container {
+    max-width: 1440px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 130px;
+    padding-right: 130px;
+}
+
+.introduction-header {
+    font-size: 38px;
+    margin-top: spacings.$spacing-0;
+    margin-bottom: spacings.$spacing-0;
+}
+
+.paragraph-header {
+    font-size: 28px;
+    color: colors.$dark-blue;
+}
+
+.paragraph {
+    font-size: 18px;
+}
+
+.footer-header {
+    color: colors.$white;
+}
+
+.footer-link {
+    color: colors.$light-grey;
+}
+
+a {
+    text-decoration: none;
+}

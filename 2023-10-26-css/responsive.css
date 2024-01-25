@@ -1,0 +1,107 @@
+/* Desktop first pvz */
+
+.container {
+    background-color: brown;
+    color: white;
+    font-size: 25px;
+    padding: 20px;
+    width: 70%;
+    margin-bottom: 30px;
+}
+
+
+@media screen and (max-width: 799px){
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 499px){
+    .container {
+        background-color: blueviolet;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 299px){
+    .container {
+        background-color: skyblue;
+        color: black;
+    }
+}
+
+
+/* Mobile first pvz */
+
+.container-mobile {
+    background-color: skyblue;
+    margin-bottom: 30px;
+}
+
+@media screen and (min-width: 300px){
+    .container-mobile {
+        background-color: blueviolet;
+        color: white;
+    }
+}
+
+@media screen and (min-width: 500px){
+    .container-mobile {
+        background-color: brown;
+        font-size: 25px;
+    }
+}
+
+@media screen and (min-width: 800px){
+    .container-mobile {
+        padding: 20px;
+        width: 70%;
+    }
+}
+
+
+
+/* Desktop first template */
+
+@media screen and (max-width: 799px){
+
+}
+
+@media screen and (max-width: 499px){
+    
+}
+
+@media screen and (max-width: 299px){
+
+}
+
+
+/* Mobile first template */
+
+@media screen and (min-width: 300px){
+
+}
+
+@media screen and (min-width: 500px){
+    
+}
+
+@media screen and (min-width: 800px){
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

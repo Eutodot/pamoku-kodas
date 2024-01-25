@@ -1,0 +1,36 @@
+@use "variables/colors";
+@use "variables/spacings";
+
+.home-page-introduction {
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: 155px;
+    background-image: url(https://raw.githubusercontent.com/frontendmentorio/blogr-landing-page/10fa91bb10d205b335833aedb134c7a65f3b20db/images/illustration-editor-desktop.svg);
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: 141% 270%;
+
+    .home-page-introduction-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: spacings.$spacing-5;
+
+        .introduction-header-wrapper {
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .introduction-header {
+                color: colors.$dark-blue;
+            }
+        }
+
+        .paragraphs-wrapper {
+            max-width: 45%; 
+
+            .paragraph {
+                color: colors.$light-grey;
+            }
+        }
+    }
+}

@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   max-width: 1440px;
   background-color: rgb(221, 218, 218);
@@ -10,6 +14,11 @@ body {
   border-radius: 25px;
   display: flex;
   overflow: hidden;
+}
+@media screen and (max-width: 500px) {
+  .container {
+    flex-direction: column;
+  }
 }
 
 .header {
@@ -38,6 +47,12 @@ body {
   justify-content: space-between;
   gap: 30px;
   padding: 30px;
+}
+@media screen and (max-width: 500px) {
+  .result-container {
+    width: 100%;
+    border-radius: 0;
+  }
 }
 .result-container .header {
   opacity: 0.7;
@@ -86,8 +101,18 @@ body {
   gap: 25px;
   padding: 30px;
 }
+@media screen and (max-width: 500px) {
+  .summary-container {
+    width: 100%;
+  }
+}
 .summary-container .header {
   color: hsl(224, 30%, 27%);
+}
+@media screen and (max-width: 300px) {
+  .summary-container .header {
+    text-align: center;
+  }
 }
 .summary-container .specific-score-box-container {
   display: flex;
@@ -96,10 +121,17 @@ body {
 }
 .summary-container .specific-score-box-container .specific-score-box {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 13px 10px;
   border-radius: 10px;
+}
+@media screen and (max-width: 300px) {
+  .summary-container .specific-score-box-container .specific-score-box {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 .summary-container .specific-score-box-container .specific-score-box:nth-of-type(4n+1) {
   background-color: hsla(0, 100%, 67%, 0.1);

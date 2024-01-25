@@ -1,0 +1,54 @@
+:root {
+    --color-primary: blue;
+}
+
+
+body {
+    background-color: var(--color-primary);
+}
+
+nav {
+    color: aqua;
+}
+
+nav ul{
+    padding: 0;
+}
+
+nav ul li {
+    margin: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+ul.menu {
+    padding-left: 0;
+}
+
+
+ul li:first-of-type {
+    color: green;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+@use "variables/colors";
+@use "variables/spacings";
+
+.home-page-footer {
+    background-color: colors.$dark-black;
+    border-top-right-radius: 70px;
+    padding-top: spacings.$spacing-4;
+    padding-bottom: spacings.$spacing-4;
+
+    .footer-wrapper {
+        display: grid;
+        grid-template: 50px repeat(5, 30px) / repeat(4, 25%);
+
+        .footer-logo {
+            grid-column-start: 1;
+        }
+        
+        .footer-header1 {
+            grid-column-start: 2;
+        }
+        
+        .product-link1 {
+            grid-column-start: 2;
+            grid-row-start: 2;
+        }
+        
+        .product-link2 {
+            grid-column-start: 2;
+            grid-row-start: 3;
+        }
+        
+        .product-link3 {
+            grid-column-start: 2;
+            grid-row-start: 4;
+        }
+        
+        .product-link4 {
+            grid-column-start: 2;
+            grid-row-start: 5;
+        }
+        
+        .product-link5 {
+            grid-column-start: 2;
+            grid-row-start: 6;
+        }
+        
+        
+        .footer-header2 {
+            grid-column-start: 3;
+        }
+        
+        .company-link1 {
+            grid-column-start: 3;
+            grid-row-start: 2;
+        }
+        
+        .company-link2 {
+            grid-column-start: 3;
+            grid-row-start: 3;
+        }
+        
+        .company-link3 {
+            grid-column-start: 3;
+            grid-row-start: 4;
+        }
+        
+        .company-link4 {
+            grid-column-start: 3;
+            grid-row-start: 5;
+        }
+        
+        .footer-header3 {
+            grid-column-start: 4;
+        }
+        
+        .connect-link1 {
+            grid-column-start: 4;
+            grid-row-start: 2;
+        }
+        
+        .connect-link2 {
+            grid-column-start: 4;
+            grid-row-start: 3;
+        }
+        
+        .connect-link3 {
+            grid-column-start: 4;
+            grid-row-start: 4;
+        }
+    }
+}

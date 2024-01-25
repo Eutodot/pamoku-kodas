@@ -1,0 +1,43 @@
+@use "variables/colors";
+
+.login-button {
+    height: 40px;
+    width: 110px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 0;
+    color: colors.$white;
+    opacity: 0.8;
+    font-weight: 600;
+}
+
+.sign-up-button {
+    height: 40px;
+    width: 110px;
+    background-color: colors.$white;
+    color: hsl(353, 100%, 62%);
+    border: 0;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.start-button {
+    height: 40px;
+    width: 110px;
+    background-color: colors.$white;
+    border: 0;
+    color: hsl(353, 100%, 62%);
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.info-button {
+    height: 40px;
+    width: 110px;
+    background-color: rgba(255, 255, 255, 0);
+    border-color: colors.$white;
+    border: 1px solid;
+    color: colors.$white;
+    opacity: 0.8;
+    border-radius: 25px;
+    font-weight: 600;
+}

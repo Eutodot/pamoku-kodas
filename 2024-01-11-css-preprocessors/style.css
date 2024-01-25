@@ -1,0 +1,29 @@
+body {
+  background-color: blue;
+}
+
+nav {
+  color: aqua;
+}
+nav ul {
+  padding: 0;
+}
+nav ul li {
+  margin: 20px;
+}
+nav ul li a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+ul.menu {
+  padding-left: 0;
+}
+ul li {
+  color: blue;
+}
+ul li:first-of-type {
+  color: green;
+}/*# sourceMappingURL=style.css.map */

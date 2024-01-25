@@ -1,0 +1,167 @@
+:root {
+    --spacing-3: 30px;
+}
+
+body {   
+    background-color: hsl(210, 46%, 95%);
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+
+.testimonial-header {
+    display: flex;
+    gap: 25px;
+}
+
+.name-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+.person-image {
+    border-radius: 50px ;
+    object-fit: cover;
+    width: 56px;
+    height: 56px;
+}
+
+.person-name {    
+    font-weight: 600;
+}
+
+.verified-tag {
+    opacity: 50%;
+}
+
+.testimonial p {
+    opacity: 70%;
+}
+
+
+
+.testimonial {
+    height: 100%;
+    border-radius: 10px;
+    padding: var(--spacing-3);
+}
+
+.inner-container > div:first-of-type  .testimonial {
+    background-image: url("https://raw.githubusercontent.com/frontendmentorio/testimonials-grid-section/b06a795ac2ed24a64056ca22f3eaa63461274a76/images/bg-pattern-quotation.svg");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 100px) 0;
+}  
+
+.inner-container > div:nth-of-type(4n+1)  .testimonial {
+    background-color: hsl(263, 55%, 52%);
+    color: hsl(210, 46%, 95%);
+}
+
+.inner-container > div:nth-of-type(4n+2)  .testimonial {
+    background-color: hsl(217, 19%, 35%);
+    color: hsl(210, 46%, 95%);
+}
+
+.inner-container > div:nth-of-type(4n+3)  .testimonial {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(217, 19%, 35%);
+}
+
+.inner-container > div:nth-of-type(4n+4)  .testimonial {
+    background-color: hsl(219, 29%, 14%);
+    color: hsl(210, 46%, 95%);
+}
+
+.vertical-container .testimonial {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(217, 19%, 35%);
+}
+
+
+
+/* .testimonial1 {
+    background-color: hsl(263, 55%, 52%);
+    color: hsl(210, 46%, 95%);
+    background-image: url("https://raw.githubusercontent.com/frontendmentorio/testimonials-grid-section/b06a795ac2ed24a64056ca22f3eaa63461274a76/images/bg-pattern-quotation.svg");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 100px) 0;
+    height: 100%;
+}
+
+.testimonial2 {
+    background-color: hsl(217, 19%, 35%);
+    color: hsl(210, 46%, 95%);
+}
+
+.testimonial3 {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(217, 19%, 35%);
+}
+
+.testimonial4 {
+    background-color: hsl(219, 29%, 14%);
+    color: hsl(210, 46%, 95%);
+}
+
+.testimonial5 {
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(217, 19%, 35%);
+} */
+
+
+
+
+
+body {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+}
+.blue {
+    background-color: blue;
+}
+.red {
+    background-color: red;
+}
+.purple {
+    background-color: purple;
+}
+.green {
+    background-color: green;
+}
+.yellow {
+    background-color: yellow;
+}
+.black {
+    background-color: black;
+}
+
+.custom-container {
+    width: 600px;
+    height: 600px;
+    margin: 15px;
+    background-color: antiquewhite;
+}
+
+.h-150 {
+    height: 150px;
+}
+
+.h-200 {
+    height: 200px;
+}
+
+.h-400 {
+    height: 400px;
+}
+
+.h-50p {
+    height: 50%;
+}
+
+.h-25p {
+    height: 25%;
+}
+
+.h-20p {
+    height: 20%;
+}
