@@ -1,0 +1,21 @@
+#alert-message {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: white;
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+
+.error-message {
+    color: red;
+}
+
+.input-error-message {
+    color: red;
+}
+
+.invalid-input-box {
+    border-color: red;
+}

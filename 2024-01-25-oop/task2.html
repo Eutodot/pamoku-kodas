@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="task2.css">
+</head>
+<body>
+    <form id="contacts-form" novalidate>
+        <div class="form-control">
+            <div class="mandatory-wrapper">
+                <label for="first-name">First name:</label>
+                <input type="text" name="first-name" id="first-name" value="Joe" data-title="first name" required>
+            </div>
+
+            <div class="mandatory-wrapper">
+                <label for="last-name">Last name:</label>
+                <input type="text" name="last-name" id="last-name" value="Doe" data-title="last name" required>
+            </div>
+
+            <div class="mandatory-wrapper">
+                <label for="age">Age:</label>
+                <input type="number" name="age" id="age" min="16" max="120" value="21" required>
+            </div>
+            
+            <div class="wrapper">
+                <label for="telephone">Telephone number:</label>
+                <input type="tel" name="telephone" id="telephone" value="860059843" required>
+            </div>
+
+            <div class="mandatory-wrapper">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" id="email" value="lbas@gmal.com" required>
+            </div>
+
+            <div class="wrapper">
+                <label for="knowledge">IT knowledge:</label>
+                <input type="range" name="knowledge" id="knowledge" max="10">
+                <output id="rangeValueOutput"></output>
+            </div>
+
+            <fieldset>
+                <legend>Select your group:</legend>
+                <div class="radio-wrapper">
+                    <div class="wrapper">
+                        <input type="radio" name="group" id="group-1" value="group 1gr." checked>
+                        <label for="group-1">Group 1gr.</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="radio" name="group" id="group-2" value="group 2gr.">
+                        <label for="group-2">Group 2gr.</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="radio" name="group" id="group-3" value="group 3gr.">
+                        <label for="group-3">Group 3gr.</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="radio" name="group" id="group-4" value="group 4gr.">
+                        <label for="group-4">Group 4gr.</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="radio" name="group" id="group-5" value="group 5gr.">
+                        <label for="group-5">Group 5gr.</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Preferred programming languages:</legend>
+                <div class="checkboxes-wrapper">
+                    <div class="wrapper">
+                        <input type="checkbox" name="language" id="language-1" value="python" checked>
+                        <label for="language-1">Python</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="checkbox" name="language" id="language-2" value="c++" checked>
+                        <label for="language-2">C++</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="checkbox" name="language" id="language-3" value="javascript">
+                        <label for="language-3">Javascript</label>
+                    </div>
+
+                    <div class="wrapper">
+                        <input type="checkbox" name="language" id="language-4" value="c-sharp">
+                        <label for="language-4">C# (C Sharp)</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button id="submit">Submit</button>
+    </form>
+
+    <form id="filter-form">
+        <div class="wrapper">
+            <label for="search-select">Search by</label>
+            <select name="search-select" id="search-select">
+                <option value="firstName">First name</option>
+                <option value="lastName">Last name</option>
+                <option value="age">Age</option>
+                <option value="knowledge">IT knowledge</option>
+                <option value="group">Group</option>
+                <option value="languages">Languages</option>
+            </select>
+
+            <label for="filter-field">Search term:</label>
+            <input type="text" name="filter-field" id="filter-field">
+        </div>
+
+        <button id="filterSubmit">Search</button>
+    </form>
+
+    <div id="students-list">
+
+    </div>
+
+    <script src="task2.js"></script>
+</body>
+</html>

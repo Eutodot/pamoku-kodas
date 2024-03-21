@@ -6,7 +6,52 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form id="car-form">
+        <div class="form-control">
+            <div class="wrapper">
+                <label for="brand">Brand:</label>
+                <input type="text" name="car-brand" id="brand" placeholder="BMW">
+            </div>
+
+            <div class="wrapper">
+                <label for="model">Model:</label>
+                <input type="text" name="car-model" id="model" placeholder="E30">
+            </div>
+
+            <div class="wrapper">
+                <label for="engine">Engine type:</label>
+                <input type="text" name="car-engine" id="engine" placeholder="Petrol">
+            </div>
+
+            <div class="wrapper">
+                <label for="basePrice">Base price:</label>
+                <input type="number" name="car-base-price" id="base-price" placeholder="10000">
+            </div>
+
+            <div class="wrapper">
+                <label for="mileage">Mileage:</label>
+                <input type="number" name="car-mileage" id="mileage" placeholder="20000">
+            </div>
+
+            <div class="wrapper">
+                <label for="color">Color:</label>
+                <input type="text" name="car-color" id="color" placeholder="White">
+            </div>
+
+            <div class="wrapper">
+                <label for="image">Car image:</label>
+                <input type="text" name="car-image" id="image" placeholder="url">
+            </div>
+
+            <div class="wrapper">
+                <label for="discount">Discount:</label>
+                <input type="number" name="car-discount" id="discount" placeholder="10">
+            </div>
+        </div>
+        <button type="submit">Create new car</button>
+    </form>
+
+    <div id="cars-list"></div>
 
     <script src="task1.js"></script>
 </body>
