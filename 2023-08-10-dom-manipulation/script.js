@@ -1,3 +1,4 @@
+"use strict";
 // let h1Element = document.querySelector('h1')
 // console.dir(h1Element.textContent)
 // h1Element.textContent = 'hello'
@@ -13,21 +14,21 @@
 //     calculateArea(fields)
 //     outputParagraph.textContent = `Perimetras lygus ${perimeter} metrams, o plotas lygus ${calculateArea(plan)} m2`
 // })
-var button = document.querySelector('#calculate');
+let button = document.querySelector('#calculate');
 button.addEventListener('click', buttonClick);
 function buttonClick() {
-    var textAreaElement = document.querySelector('textarea');
-    var plan = textAreaElement.value;
-    var fields = plan.split(' ');
-    var perimeter = calculatePerimeter(fields) * 100;
-    var outputParagraph = document.querySelector('p');
-    outputParagraph.textContent = "Perimetras lygus ".concat(perimeter, " metrams, o plotas lygus ").concat(calculateArea(plan), " m2");
+    let textAreaElement = document.querySelector('textarea');
+    let plan = textAreaElement.value;
+    let fields = plan.split(' ');
+    let perimeter = calculatePerimeter(fields) * 100;
+    let outputParagraph = document.querySelector('p');
+    outputParagraph.textContent = `Perimetras lygus ${perimeter} metrams, o plotas lygus ${calculateArea(plan)} m2`;
 }
 function calculatePerimeter(fields) {
-    var perimeter = 0;
-    for (var i = 0; i < fields.length; i++) {
-        var row = fields[i].split('');
-        for (var j = 0; j < fields[i].length; j++) {
+    let perimeter = 0;
+    for (let i = 0; i < fields.length; i++) {
+        let row = fields[i].split('');
+        for (let j = 0; j < fields[i].length; j++) {
             if (row[j] == 'X') {
                 if (i == 0) {
                     perimeter++;
@@ -59,10 +60,10 @@ function calculatePerimeter(fields) {
     return perimeter;
 }
 function calculateArea(fields) {
-    var area = 0;
-    for (var i = 0; i < fields.length; i++) {
-        var row = fields[i].split('');
-        for (var j = 0; j < fields[i].length; j++) {
+    let area = 0;
+    for (let i = 0; i < fields.length; i++) {
+        let row = fields[i].split('');
+        for (let j = 0; j < fields[i].length; j++) {
             if (row[j] == 'X') {
                 area++;
             }

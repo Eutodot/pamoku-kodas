@@ -1,8 +1,7 @@
 let rock = document.querySelector('#rock')!
 let paper = document.querySelector('#paper')!
 let scissors = document.querySelector('#scissors')!
-let playerOption = [rock, paper, scissors]
-let computerOption = ['rock', 'paper', 'scissors']
+let computerOption = ['rock', 'paper', 'scissors']       // Pakeisti i enum
 let winnerParagraph = document.querySelector('p')!
 let winsParagraph = document.querySelector('#score')!
 let playerWins = 0
@@ -11,9 +10,9 @@ let draws = 0
 
 
 function getComputerChoice(choices: string[]) {
-    let max: number = choices.length
+    let max = choices.length
     let randomIndex = Math.floor(Math.random() * max)
-    let computerAnswer: string = choices[randomIndex]
+    let computerAnswer = choices[randomIndex]
     return computerAnswer
 }
 

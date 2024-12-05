@@ -34,7 +34,7 @@ function buttonClick(){
 
 
 
-function calculatePerimeter(fields: string[]){
+function calculatePerimeter(fields: string[]): number{
     let perimeter = 0
 
     for (let i = 0; i < fields.length; i++){
@@ -77,7 +77,7 @@ function calculatePerimeter(fields: string[]){
     return perimeter
 }
 
-function calculateArea(fields: string){
+function calculateArea(fields: string): number{
     let area = 0
 
     for (let i = 0; i < fields.length; i++){

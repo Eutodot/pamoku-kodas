@@ -1,21 +1,21 @@
-var rock = document.querySelector('#rock');
-var paper = document.querySelector('#paper');
-var scissors = document.querySelector('#scissors');
-var playerOption = [rock, paper, scissors];
-var computerOption = ['rock', 'paper', 'scissors'];
-var winnerParagraph = document.querySelector('p');
-var winsParagraph = document.querySelector('#score');
-var playerWins = 0;
-var computerWins = 0;
-var draws = 0;
+"use strict";
+let rock = document.querySelector('#rock');
+let paper = document.querySelector('#paper');
+let scissors = document.querySelector('#scissors');
+let computerOption = ['rock', 'paper', 'scissors']; // Pakeisti i enum
+let winnerParagraph = document.querySelector('p');
+let winsParagraph = document.querySelector('#score');
+let playerWins = 0;
+let computerWins = 0;
+let draws = 0;
 function getComputerChoice(choices) {
-    var max = choices.length;
-    var randomIndex = Math.floor(Math.random() * max);
-    var computerAnswer = choices[randomIndex];
+    let max = choices.length;
+    let randomIndex = Math.floor(Math.random() * max);
+    let computerAnswer = choices[randomIndex];
     return computerAnswer;
 }
 rock.addEventListener('click', function () {
-    var computerChoice = getComputerChoice(computerOption);
+    let computerChoice = getComputerChoice(computerOption);
     if (computerChoice == 'rock') {
         winnerParagraph.textContent = 'Computer chose Rock. Draw.';
         draws++;
@@ -28,10 +28,10 @@ rock.addEventListener('click', function () {
         winnerParagraph.textContent = 'Computer chose Scissors. You win.';
         playerWins++;
     }
-    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
+    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
 });
 paper.addEventListener('click', function () {
-    var computerChoice = getComputerChoice(computerOption);
+    let computerChoice = getComputerChoice(computerOption);
     if (computerChoice == 'rock') {
         winnerParagraph.textContent = 'Computer chose Rock. You win.';
         playerWins++;
@@ -44,10 +44,10 @@ paper.addEventListener('click', function () {
         winnerParagraph.textContent = 'Computer chose Scissors. You lose.';
         computerWins++;
     }
-    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
+    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
 });
 scissors.addEventListener('click', function () {
-    var computerChoice = getComputerChoice(computerOption);
+    let computerChoice = getComputerChoice(computerOption);
     if (computerChoice == 'rock') {
         winnerParagraph.textContent = 'Computer chose Rock. You lose.';
         computerWins++;
@@ -60,5 +60,5 @@ scissors.addEventListener('click', function () {
         winnerParagraph.textContent = 'Computer chose Scissors. Draw.';
         draws++;
     }
-    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
+    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
 });
