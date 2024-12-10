@@ -1,64 +1,68 @@
-"use strict";
-let rock = document.querySelector('#rock');
-let paper = document.querySelector('#paper');
-let scissors = document.querySelector('#scissors');
-let computerOption = ['rock', 'paper', 'scissors']; // Pakeisti i enum
-let winnerParagraph = document.querySelector('p');
-let winsParagraph = document.querySelector('#score');
-let playerWins = 0;
-let computerWins = 0;
-let draws = 0;
+var rock = document.querySelector('#rock');
+var paper = document.querySelector('#paper');
+var scissors = document.querySelector('#scissors');
+var ComputerOption;
+(function (ComputerOption) {
+    ComputerOption[ComputerOption["ROCK"] = 0] = "ROCK";
+    ComputerOption[ComputerOption["PAPER"] = 1] = "PAPER";
+    ComputerOption[ComputerOption["SCISSORS"] = 2] = "SCISSORS";
+})(ComputerOption || (ComputerOption = {})); // Pakeisti i enum
+var winnerParagraph = document.querySelector('p');
+var winsParagraph = document.querySelector('#score');
+var playerWins = 0;
+var computerWins = 0;
+var draws = 0;
 function getComputerChoice(choices) {
-    let max = choices.length;
-    let randomIndex = Math.floor(Math.random() * max);
-    let computerAnswer = choices[randomIndex];
+    var max = choices.length;
+    var randomIndex = Math.floor(Math.random() * max);
+    var computerAnswer = randomIndex;
     return computerAnswer;
 }
 rock.addEventListener('click', function () {
-    let computerChoice = getComputerChoice(computerOption);
-    if (computerChoice == 'rock') {
+    var computerChoice = getComputerChoice(ComputerOption);
+    if (computerChoice == ComputerOption.ROCK) {
         winnerParagraph.textContent = 'Computer chose Rock. Draw.';
         draws++;
     }
-    else if (computerChoice == 'paper') {
+    else if (computerChoice == ComputerOption.PAPER) {
         winnerParagraph.textContent = 'Computer chose Paper. You lose.';
         computerWins++;
     }
-    else if (computerChoice == 'scissors') {
+    else if (computerChoice == ComputerOption.SCISSORS) {
         winnerParagraph.textContent = 'Computer chose Scissors. You win.';
         playerWins++;
     }
-    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
+    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
 });
 paper.addEventListener('click', function () {
-    let computerChoice = getComputerChoice(computerOption);
-    if (computerChoice == 'rock') {
+    var computerChoice = getComputerChoice(ComputerOption);
+    if (computerChoice == ComputerOption.ROCK) {
         winnerParagraph.textContent = 'Computer chose Rock. You win.';
         playerWins++;
     }
-    else if (computerChoice == 'paper') {
+    else if (computerChoice == ComputerOption.PAPER) {
         winnerParagraph.textContent = 'Computer chose Paper. Draw.';
         draws++;
     }
-    else if (computerChoice == 'scissors') {
+    else if (computerChoice == ComputerOption.SCISSORS) {
         winnerParagraph.textContent = 'Computer chose Scissors. You lose.';
         computerWins++;
     }
-    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
+    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
 });
 scissors.addEventListener('click', function () {
-    let computerChoice = getComputerChoice(computerOption);
-    if (computerChoice == 'rock') {
+    var computerChoice = getComputerChoice(ComputerOption);
+    if (computerChoice == ComputerOption.ROCK) {
         winnerParagraph.textContent = 'Computer chose Rock. You lose.';
         computerWins++;
     }
-    else if (computerChoice == 'paper') {
+    else if (computerChoice == ComputerOption.PAPER) {
         winnerParagraph.textContent = 'Computer chose Paper. You win.';
         playerWins++;
     }
-    else if (computerChoice == 'scissors') {
+    else if (computerChoice == ComputerOption.SCISSORS) {
         winnerParagraph.textContent = 'Computer chose Scissors. Draw.';
         draws++;
     }
-    winsParagraph.textContent = `Computer won ${computerWins} times. You won ${playerWins} times. ${draws} draws`;
+    winsParagraph.textContent = "Computer won ".concat(computerWins, " times. You won ").concat(playerWins, " times. ").concat(draws, " draws");
 });
