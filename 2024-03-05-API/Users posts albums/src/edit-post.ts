@@ -26,7 +26,7 @@ async function init(){
     const titleInput = postForm.querySelector('#title')! as HTMLInputElement
     titleInput.value = firstLetterUpperCase(postData.title)
     
-    const bodyInput = postForm.querySelector('#body')!
+    const bodyInput = postForm.querySelector('#body')! as HTMLInputElement
     bodyInput.value = firstLetterUpperCase(postData.body)
     
     userSelect.value = `${postData.user.id}_${postData.user.name}`

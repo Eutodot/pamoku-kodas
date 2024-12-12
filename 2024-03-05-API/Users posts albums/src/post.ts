@@ -1,5 +1,6 @@
 import { firstLetterUpperCase, getUrlParams } from "./functions.ts"
 import createHeader from "./header.ts"
+import { Comment, Post } from "./types.ts"
 
 
 async function init(){
@@ -13,7 +14,7 @@ async function init(){
     const postId = getUrlParams('postId')
 
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_expand=user&_embed=comments`)
-    const postData = await response.json()
+    const postData: Post = await response.json()
 
     if (Object.keys(postData).length === 0){
         titleElement.textContent = 'Post not found'
@@ -47,7 +48,7 @@ async function init(){
     const formControl1 = document.createElement('div')
     formControl1.classList.add('form-control')
     const commentNameInputLabel = document.createElement('label')
-    commentNameInputLabel.for = 'comment-name-input'
+    commentNameInputLabel.htmlFor = 'comment-name-input'
     commentNameInputLabel.textContent = 'Title: '
     const commentNameInput = document.createElement('input')
     commentNameInput.name = 'comment-name-input'
@@ -58,7 +59,7 @@ async function init(){
     const formControl2 = document.createElement('div')
     formControl2.classList.add('form-control')
     const commentTextInputLabel = document.createElement('label')
-    commentTextInputLabel.for = 'comment-text-input'
+    commentTextInputLabel.htmlFor = 'comment-text-input'
     commentTextInputLabel.textContent = 'Text: '
     const commentTextInput = document.createElement('textarea')
     commentTextInput.name = 'comment-text-input'
@@ -69,7 +70,7 @@ async function init(){
     const formControl3 = document.createElement('div')
     formControl3.classList.add('form-control')
     const commentAuthorInputLabel = document.createElement('label')
-    commentAuthorInputLabel.for = 'comment-author-input'
+    commentAuthorInputLabel.htmlFor = 'comment-author-input'
     commentAuthorInputLabel.textContent = 'Email: '
     const commentAuthorInput = document.createElement('input')
     commentAuthorInput.type = 'email'
@@ -93,7 +94,7 @@ async function init(){
 
     postData.comments.forEach(comment => {
 
-        postCommentsList.append(createCommentElement(comment.id, comment.name, comment.body, comment.email, createCommentForm))
+        // postCommentsList.append(createCommentElement(comment.id, comment.name, comment.body, comment.email, createCommentForm))
     })
 
     postCommentsWrapper.append(postCommentsList)
@@ -126,14 +127,13 @@ async function init(){
         })
         const createdComment = await response.json()
 
-        postCommentsList.prepend(createCommentElement(createdComment.id, createdComment.name, createdComment.body, createdComment.email, createCommentForm)
-    )
+        // postCommentsList.prepend(createCommentElement(createdComment.id, createdComment.name, createdComment.body, createdComment.email, createCommentForm))
     })
 
 }
 
-function createCommentElement(id, name, body, email, form){
-    
+function createCommentElement(commentData: Comment, form: HTMLFormElement){
+    const { postId, name, body, email } = commentData
     const liElement = document.createElement('li')
 
     const commentNameElement = document.createElement('h3')

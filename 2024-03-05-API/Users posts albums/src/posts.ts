@@ -1,5 +1,6 @@
 import createHeader from './header.ts'
 import { firstLetterUpperCase } from "./functions.ts"
+import { Post } from './types.ts'
 
 
 const postsWrapper = document.querySelector('#posts-wrapper')!
@@ -9,7 +10,7 @@ async function init(){
 
     // changeNavigationStyle()
 
-    const postsArr = await getPosts()
+    const postsArr: Post[] = await getPosts()
     postsArr.forEach(async post => {
         const singlePostWrapper = document.createElement('div')
         const postNameElement = document.createElement('a')

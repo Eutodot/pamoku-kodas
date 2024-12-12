@@ -18,7 +18,7 @@ export default function createHeader(){
     searchForm.action = 'search.html'
 
     const selectLabel = document.createElement('label')
-    selectLabel.for = 'search-select'
+    selectLabel.htmlFor = 'search-select'
     selectLabel.textContent = 'Select search place: '
     const searchSelect = document.createElement('select')
     searchSelect.name = 'search-select'
@@ -34,7 +34,7 @@ export default function createHeader(){
     })
 
     const inputLabel = document.createElement('label')
-    inputLabel.for = 'search-input'
+    inputLabel.htmlFor = 'search-input'
     inputLabel.textContent = 'Type in the search phrase: '
     const searchInput = document.createElement('input')
     searchInput.name = 'search-input'

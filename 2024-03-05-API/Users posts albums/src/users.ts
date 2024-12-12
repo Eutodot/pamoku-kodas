@@ -1,5 +1,6 @@
 import { getUsers } from "./functions.ts"
 import createHeader from "./header.ts"
+import { User } from "./types.ts"
 
 const usersWrapper = document.querySelector('#users-wrapper')!
 async function init(){
@@ -8,7 +9,7 @@ async function init(){
 
     // changeNavigationStyle()
 
-    const usersArr = await getUsers()
+    const usersArr: User[] = await getUsers()
     usersArr.forEach(async user => {
         const singleUserWrapper = document.createElement('div')
         const userElement = document.createElement('a')

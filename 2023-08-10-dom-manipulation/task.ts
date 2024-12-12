@@ -2,6 +2,9 @@ let rock = document.querySelector('#rock')!
 let paper = document.querySelector('#paper')!
 let scissors = document.querySelector('#scissors')!
 enum ComputerOption {ROCK, PAPER, SCISSORS}      // Pakeisti i enum
+console.log("🚀 ~ ComputerOption:", ComputerOption)
+console.log("🚀 ~ ComputerOption:", ComputerOption[0])
+console.log("🚀 ~ ComputerOption:", Object.keys(ComputerOption).length / 2)
 let winnerParagraph = document.querySelector('p')!
 let winsParagraph = document.querySelector('#score')!
 let playerWins = 0
@@ -10,9 +13,8 @@ let draws = 0
 
 
 function getComputerChoice() {
-    // let max = ComputerOption.length
-    let randomIndex = Math.floor(Math.random() * 3)
-    let computerAnswer = ComputerOption[randomIndex]
+    let max = Object.keys(ComputerOption).length / 2
+    let computerAnswer = Math.floor(Math.random() * max)
     return computerAnswer
 }
 
@@ -34,7 +36,7 @@ rock.addEventListener('click', function(){
 })
 
 paper.addEventListener('click', function(){
-    let computerChoice = getComputerChoice(ComputerOption)
+    let computerChoice = getComputerChoice()
     
     if (computerChoice == ComputerOption.ROCK){
         winnerParagraph.textContent = 'Computer chose Rock. You win.'
@@ -51,7 +53,7 @@ paper.addEventListener('click', function(){
 })
 
 scissors.addEventListener('click', function(){
-    let computerChoice = getComputerChoice(ComputerOption)
+    let computerChoice = getComputerChoice()
     
     if (computerChoice == ComputerOption.ROCK){
         winnerParagraph.textContent = 'Computer chose Rock. You lose.'

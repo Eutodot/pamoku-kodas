@@ -1,5 +1,6 @@
 import createHeader from "./header.ts"
 import { firstLetterUpperCase, getUrlParams } from "./functions.ts"
+import { User } from "./types.ts"
 
 async function init(){
     const header = createHeader()
@@ -13,7 +14,7 @@ async function init(){
 
     
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}?_embed=posts&_embed=albums`)
-    const userData = await response.json()
+    const userData: User = await response.json()
     console.log(userData)
     
     if (Object.keys(userData).length === 0){

@@ -1,13 +1,14 @@
 import { firstLetterUpperCase } from "./functions.ts"
+import { Album, Photo, Post, User } from "./types.ts"
 
-export default async function createSearchResult(searchPhrase, searchPlace){
+export default async function createSearchResult(searchPhrase: string, searchPlace: string){
     const searchResults = document.createElement('div')
 
-    let postsArr = []
-    let usersArr = []
-    let albumsArr = []
-    let commentsArr = []
-    let photosArr = []
+    let postsArr: Post[] = []
+    let usersArr: User[] = []
+    let albumsArr: Album[] = []
+    let commentsArr: Comment[] = []
+    let photosArr: Photo[] = []
 
     switch(searchPlace){
         case 'all':
@@ -55,37 +56,37 @@ export default async function createSearchResult(searchPhrase, searchPlace){
     return searchResults
 }
 
-async function getWantedPosts(phrase){
+async function getWantedPosts(phrase: string){
     const response = await fetch(`https://jsonplaceholder.typicode.com/posts?q=${phrase}`)
-    const postsArr = await response.json()
+    const postsArr: Post[] = await response.json()
     return postsArr
 }
 
-async function getWantedPhotos(phrase){
+async function getWantedPhotos(phrase: string){
     const response = await fetch(`https://jsonplaceholder.typicode.com/photos?q=${phrase}`)
-    const photosArr = await response.json()
+    const photosArr: Photo[] = await response.json()
     return photosArr
 }
 
-async function getWantedComments(phrase){
+async function getWantedComments(phrase: string){
     const response = await fetch(`https://jsonplaceholder.typicode.com/comments?q=${phrase}`)
-    const commentsArr = await response.json()
+    const commentsArr: Comment[] = await response.json()
     return commentsArr
 }
 
-async function getWantedUsers(phrase){
+async function getWantedUsers(phrase: string){
     const response = await fetch(`https://jsonplaceholder.typicode.com/users?q=${phrase}`)
-    const usersArr = await response.json()
+    const usersArr: User[] = await response.json()
     return usersArr
 }
 
-async function getWantedAlbums(phrase){
+async function getWantedAlbums(phrase: string){
     const response = await fetch(`https://jsonplaceholder.typicode.com/albums?q=${phrase}`)
-    const albumsArr = await response.json()
+    const albumsArr: Album[] = await response.json()
     return albumsArr
 }
 
-function createUl(arr, name, type){
+function createUl(arr: User[] | Post[] | Comment[] | Album[] | Photo[], name: string, type: string){
     const ulWrapper = document.createElement('div')
 
     const ulName = document.createElement('p')

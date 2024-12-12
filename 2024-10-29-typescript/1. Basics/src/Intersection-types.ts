@@ -61,6 +61,20 @@ const add3 = (a: Combinable2, b: Combinable2): Combinable2 => {
 
 
 
+type UnknownEmployee = Employee | Admin
+
+const printInfo = (employee: UnknownEmployee) => {
+    console.log(employee.name)
+    if ('startDate' in employee){
+        console.log(employee.startDate)
+    }
+    
+    if ('privileges' in employee){
+        console.log(employee.privileges)
+    }
+}
+
+printInfo(employee1)
 
 
 

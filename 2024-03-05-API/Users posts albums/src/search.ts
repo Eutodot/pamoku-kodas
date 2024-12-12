@@ -10,7 +10,6 @@ async function init(){
 
     const searchPhrase = getUrlParams('search-input')
     const searchPlace = getUrlParams('search-select')
-    console.log(searchPhrase)
 
     const searchResult = await createSearchResult(searchPhrase, searchPlace)
     contentElement.append(searchResult)

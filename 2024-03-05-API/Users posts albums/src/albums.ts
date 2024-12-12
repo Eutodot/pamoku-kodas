@@ -1,5 +1,6 @@
 import { firstLetterUpperCase } from "./functions.ts"
 import createHeader from "./header.ts"
+import { Album, Photo } from "./types.ts"
 
 const albumsWrapper = document.querySelector('#albums-wrapper')!
 async function init(){
@@ -8,7 +9,7 @@ async function init(){
 
     // changeNavigationStyle()
 
-    const albumsArr = await getAlbums()
+    const albumsArr: Album[] = await getAlbums()
     albumsArr.forEach(async album => {
         const singleAlbumWrapper = document.createElement('a')
         const albumNameElement = document.createElement('p')
@@ -45,7 +46,7 @@ async function getAlbums(){
 //     return photosAmount
 // }
 
-function getOnePhoto(photosArr){
+function getOnePhoto(photosArr: Photo[]){
     let randomNumInArr = Math.floor(Math.random() * photosArr.length)
     const photoUrl = photosArr[randomNumInArr].thumbnailUrl
     return photoUrl

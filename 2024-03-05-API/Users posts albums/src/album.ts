@@ -1,48 +1,7 @@
 import { firstLetterUpperCase, getUrlParams } from "./functions.ts"
 import createHeader from "./header.ts"
+import { Album, Photo } from "./types.ts"
 
-type Album = {
-    userId: number
-    id: number
-    title: string
-    photos: Photo[]
-    user: User
-}
-type Photo = {
-    albumId: number
-    id: number
-    title: string
-    url: string
-    thumbnailUrl: string
-}
-
-type User = {
-    id: number
-    name: string
-    username: string
-    email: string
-    address: Address
-    phone: string
-    website: string
-    company: Company
-}
-
-type Address = {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
-    geo: {
-        lat: string
-        lng: string
-    }
-}
-
-type Company = {
-    name: string
-    catchPhrase: string
-    bs: string
-}
 
 async function init(){
     const header = createHeader()
