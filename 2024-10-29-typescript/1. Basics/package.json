@@ -3,6 +3,6 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "start": "npx tsc script.ts -w"
+    "start": "npx tsc -w"
   }
 }
