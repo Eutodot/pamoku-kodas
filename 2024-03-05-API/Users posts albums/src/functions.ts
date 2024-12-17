@@ -7,7 +7,7 @@ export function getUrlParams(param: string): string{
     return value ?? ''
 }
 
-export function firstLetterUpperCase(str: string){
+export function firstLetterUpperCase(str: string): string{
     if (str.length === 0){
         return str
     }

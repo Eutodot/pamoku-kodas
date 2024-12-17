@@ -93,8 +93,8 @@ async function init(){
     const postCommentsList = document.createElement('ul')
 
     postData.comments.forEach(comment => {
-
-        // postCommentsList.append(createCommentElement(comment.id, comment.name, comment.body, comment.email, createCommentForm))
+            console.log(comment)
+        postCommentsList.append(createCommentElement(comment, commentNameInput, commentTextInput, commentAuthorInput, createCommentForm))
     })
 
     postCommentsWrapper.append(postCommentsList)
@@ -111,7 +111,7 @@ async function init(){
     createCommentForm.addEventListener('submit', async event => {
         event.preventDefault()
 
-        const newComment = {
+        const newComment: Comment = {
             postId: postData.id,
             name: commentNameInput.value,
             body: commentTextInput.value,
@@ -125,15 +125,15 @@ async function init(){
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-        const createdComment = await response.json()
+        const createdComment: Comment = await response.json()
 
-        // postCommentsList.prepend(createCommentElement(createdComment.id, createdComment.name, createdComment.body, createdComment.email, createCommentForm))
+        postCommentsList.prepend(createCommentElement(createdComment, commentNameInput, commentTextInput, commentAuthorInput, createCommentForm))
     })
 
 }
 
-function createCommentElement(commentData: Comment, form: HTMLFormElement){
-    const { postId, name, body, email } = commentData
+function createCommentElement(commentData: Comment, commentNameInput: HTMLInputElement, commentTextInput: HTMLTextAreaElement, commentAuthorInput: HTMLInputElement, form: HTMLFormElement): HTMLLIElement{
+    const { id, postId, name, body, email } = commentData
     const liElement = document.createElement('li')
 
     const commentNameElement = document.createElement('h3')
@@ -156,8 +156,8 @@ function createCommentElement(commentData: Comment, form: HTMLFormElement){
         form['comment-text-input'].value = body
         form['comment-author-input'].value = email
 
-        const newComment = {
-            postId: postData.id,
+        const newComment: Comment = {
+            postId,
             name: commentNameInput.value,
             body: commentTextInput.value,
             email: commentAuthorInput.value,
@@ -165,13 +165,13 @@ function createCommentElement(commentData: Comment, form: HTMLFormElement){
 
         const response = await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
             method: 'PUT',
-            body: JSON.stringify(newPost),
+            body: JSON.stringify(newComment),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-        const editedComment = await response.json()
-        console.log(editedComment)
+        const editedComment: Comment = await response.json()
+    
         commentNameElement.textContent = firstLetterUpperCase(editedComment.name)
 
         commentTextElement.textContent = firstLetterUpperCase(editedComment.body)

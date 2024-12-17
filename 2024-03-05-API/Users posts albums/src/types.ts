@@ -25,7 +25,7 @@ export type Post = {
 
 export type Comment = {
     postId: number
-    id: number
+    id?: number
     name: string
     email: string
     body: string
