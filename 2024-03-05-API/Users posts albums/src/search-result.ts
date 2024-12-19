@@ -1,54 +1,72 @@
 import { firstLetterUpperCase } from "./functions.ts"
 import { Album, Photo, Post, User } from "./types.ts"
 
+type PostsData = {
+    data: Post[]
+    type: 'post'
+}
+type UsersData = {
+    data: User[]
+    type: 'user'
+}
+type AlbumsData = {
+    data: Album[]
+    type: 'album'
+}
+type CommentsData = {
+    data: Comment[]
+    type: 'comment'
+}
+type PhotosData = {
+    data: Photo[]
+    type: 'photo'
+}
+
+type DataList = UsersData | PostsData | AlbumsData | CommentsData | PhotosData
+
 export default async function createSearchResult(searchPhrase: string, searchPlace: string){
     const searchResults = document.createElement('div')
 
-    let postsArr: Post[] = []
-    let usersArr: User[] = []
-    let albumsArr: Album[] = []
-    let commentsArr: Comment[] = []
-    let photosArr: Photo[] = []
-
     switch(searchPlace){
-        case 'all':
-            postsArr = await getWantedPosts(searchPhrase)
-            usersArr = await getWantedUsers(searchPhrase)
-            albumsArr = await getWantedAlbums(searchPhrase)
+        case 'all': {
+            const postsArr = await getWantedPosts(searchPhrase)
+            const usersArr = await getWantedUsers(searchPhrase)
+            const albumsArr = await getWantedAlbums(searchPhrase)
 
-            searchResults.append(createUl(usersArr, 'users', 'user'))
-            searchResults.append(createUl(postsArr, 'posts', 'post'))
-            searchResults.append(createUl(albumsArr, 'albums', 'album'))
+            searchResults.append(createUl({data: usersArr, type: 'user'}, 'users'))
+            searchResults.append(createUl({data: postsArr, type: 'post'}, 'posts'))
+            searchResults.append(createUl({data: albumsArr, type: 'album'}, 'albums'))
 
             break
+        }
         case 'users':
-            usersArr = await getWantedUsers(searchPhrase)
+            const usersArr: User[] = await getWantedUsers(searchPhrase)
 
-            searchResults.append(createUl(usersArr, 'users', 'user'))
+            searchResults.append(createUl({data: usersArr, type: 'user'}, 'users'))
 
             break
         case 'posts':
-            postsArr = await getWantedPosts(searchPhrase)
+            const postsArr: Post[] = await getWantedPosts(searchPhrase)
 
-            searchResults.append(createUl(postsArr, 'posts', 'post'))
+            searchResults.append(createUl({data: postsArr, type: 'post'}, 'posts'))
 
             break
         case 'comments':
-            commentsArr = await getWantedComments(searchPhrase)
+            const commentsArr: Comment[] = await getWantedComments(searchPhrase)
 
-            searchResults.append(createUl(commentsArr, 'comments', 'comment'))
+            searchResults.append(createUl({data: commentsArr, type: 'comment'}, 'comments'))
 
             break
         case 'albums':
-            albumsArr = await getWantedAlbums(searchPhrase)
+            const albumsArr: Album[] = await getWantedAlbums(searchPhrase)
 
-            searchResults.append(createUl(albumsArr, 'albums', 'album'))
+            searchResults.append(createUl({data: albumsArr, type: 'album'}, 'albums'))
 
             break
         case 'photos':
-            photosArr = await getWantedPhotos(searchPhrase)
+            const photosArr: Photo[] = await getWantedPhotos(searchPhrase)
 
-            searchResults.append(createUl(photosArr, 'photos', 'photo'))
+            searchResults.append(createUl({data: photosArr, type: 'photo'}, 'photos'))
 
             break
     }
@@ -86,19 +104,20 @@ async function getWantedAlbums(phrase: string){
     return albumsArr
 }
 
-function createUl(arr: User[] | Post[] | Comment[] | Album[] | Photo[], name: string, type: string){
+function createUl(dataList: DataList, name: string){
+    const { data, type } = dataList
     const ulWrapper = document.createElement('div')
 
     const ulName = document.createElement('p')
     ulName.textContent = firstLetterUpperCase(name) + ':'
 
-    if (arr.length == 0){
+    if (data.length == 0){
         ulName.textContent = `No ${name} have this phrase.`
         return ulName
     }
 
     const customUl = document.createElement('ul')
-    arr.forEach(item => {
+    data.forEach(item => {
         const liElement = document.createElement('li')
         const itemElement = document.createElement('a')
         if (type == 'user' || type == 'comment'){

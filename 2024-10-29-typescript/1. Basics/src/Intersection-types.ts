@@ -180,8 +180,76 @@ const promise: Promise<string> = new Promise((resolve, reject) => {
 })
 
 promise.then(data => {
-    console.log(data.split(" "))
+    // console.log(data.split(" "))
 })
+
+
+/////////////////////////////////// Custom generic types
+
+// const merge = (obj1: object, obj2: object) => {
+//     return Object.assign(obj1, obj2)
+// }
+
+// const mergedObj = merge({name: "john"}, {age: 54}) as {name: string, age: number}
+
+
+// function merge<T extends Object, U>(obj1: T, obj2: U){
+//     return Object.assign(obj1, obj2)
+// }
+
+
+function merge<T extends object, U extends object>(obj1: T, obj2: U){
+    // return Object.assign({}, obj1, obj2)
+    return {...obj1, ...obj2}
+}
+
+const mergedObj = merge({name: "john", hobbies: ['1', '2']}, {age: 54})
+
+const mergedObj2 = merge({name: "Bob", lastName: "Steve"}, {age: 89})
+
+console.log(mergedObj.hobbies[0])
+console.log(mergedObj2.lastName)
+
+// const mergedObj3 = merge({name: "Mark", lastName: "Fish"}, 89)      // neveiks
+const mergedObj3 = merge({name: "Mark", lastName: "Fish"}, {age: 34})      // veiks
+
+console.log(mergedObj3.age)
+
+
+
+
+
+type Len = {
+    length: number
+}
+
+function countAndDescribe<T extends Len>(element: T): [T, string]{
+    let describeText = 'no value'
+
+    if (element.length === 1){
+        describeText = 'one element'
+    } else if (element.length >= 1) {
+        describeText = `it has ${element.length} elements`
+    }
+
+    return [element, describeText]
+}
+
+console.log(countAndDescribe('hello'))      // veikia nes string turi length
+console.log(countAndDescribe(['1', '2', '3']))      // veikia nes array turi length
+// console.log(countAndDescribe(5))      // neveikia nes number neturi length
+console.log(countAndDescribe({length: 7}))      // veikia nes turi property length
+// console.log(countAndDescribe({length: "helo"}))      // neveikia nes length turi buti number
+
+
+
+
+
+
+
+
+
+
 
 
 

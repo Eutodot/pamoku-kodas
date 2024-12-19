@@ -62,5 +62,26 @@ const promise = new Promise((resolve, reject) => {
     }, 2000);
 });
 promise.then(data => {
-    console.log(data.split(" "));
 });
+function merge(obj1, obj2) {
+    return Object.assign(Object.assign({}, obj1), obj2);
+}
+const mergedObj = merge({ name: "john", hobbies: ['1', '2'] }, { age: 54 });
+const mergedObj2 = merge({ name: "Bob", lastName: "Steve" }, { age: 89 });
+console.log(mergedObj.hobbies[0]);
+console.log(mergedObj2.lastName);
+const mergedObj3 = merge({ name: "Mark", lastName: "Fish" }, { age: 34 });
+console.log(mergedObj3.age);
+function countAndDescribe(element) {
+    let describeText = 'no value';
+    if (element.length === 1) {
+        describeText = 'one element';
+    }
+    else if (element.length >= 1) {
+        describeText = `it has ${element.length} elements`;
+    }
+    return [element, describeText];
+}
+console.log(countAndDescribe('hello'));
+console.log(countAndDescribe(['1', '2', '3']));
+console.log(countAndDescribe({ length: 7 }));
