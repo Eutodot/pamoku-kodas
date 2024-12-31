@@ -112,6 +112,28 @@ const moveAnimal = (animal: Animal) => {
 moveAnimal({type: "bird", flyingSpeed: 12})
 
 
+/////////////////////// Index properties
+
+
+
+type ErrorContainer = {
+    // email: 'not a valid email'
+    // username: 'Username must start with a capital letter'
+
+    [key: string]: string
+    // id: number      // neveiks
+    // id: string      // veiks
+}
+
+const error: ErrorContainer = {
+    // 8: 'not valid',      // veiks nes skaiciu kovertuoja i stringa
+    // email: 5,               // neveiks nes value turi buti string
+    email: 'not valid',
+    username: 'not valid'
+}
+
+
+
 ////////////////////// HTML
 
 // const paragraph = document.querySelector('p')!
@@ -243,6 +265,52 @@ console.log(countAndDescribe({length: 7}))      // veikia nes turi property leng
 
 
 
+////////////////////////////////////////////////////////////////// Generic utility type
+
+//////////////////////// Generic partial type
+
+
+type Task = {
+    title: string
+    description: string
+    date: Date
+}
+
+function createTask(title: string, description: string, date: Date): Task{
+    // return {title, description, date}       ///////// veiks
+    const todoTask: Partial<Task> = {}
+
+    todoTask.title = title
+    todoTask.description = description
+    todoTask.date = date
+
+    return todoTask as Task
+}
+
+
+
+//////////////////////// Generic Read-only type
+
+
+const people: Readonly<string[]> = ['John', 'Steve']
+
+// people.push('Peter')         //
+
+
+
+///////////////////////////////////////// key of constrain
+
+// function extractFromObject(obj: object, key: string){
+//     return key + ' of object is: ' + obj[key]       // nezino ar yra key property
+// }
+
+function extractFromObject<T extends object, U extends keyof T>(obj: T, key: U){
+    return key.toString() + ' of object is: ' + obj[key]    
+}
+
+// extractFromObject({name: 'Joe'}, 'name')        // veiks
+// extractFromObject({name: 'Joe'}, 'age')        // neveiks
+extractFromObject({age: 23}, 'age')              // veiks
 
 
 
@@ -270,6 +338,11 @@ console.log(countAndDescribe({length: 7}))      // veikia nes turi property leng
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  GRYZTI PRIE INDEX PROPERTIES
+
+
+
+
+
+
 
 
