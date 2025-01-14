@@ -17,9 +17,9 @@ const App: React.FC = () => {
 
     return (
       <div>
-        {/* <NewTodo onAddTodo={addTodoHandler}/> */}
+        <NewTodo onAddTodo={addTodoHandler}/>
 
-        {/* <TodoList data={todos} onDeleteTodo={deleteTodoHandler}/> */}
+        <TodoList data={todos} onDeleteTodo={deleteTodoHandler}/>
       </div>
     )
 }
