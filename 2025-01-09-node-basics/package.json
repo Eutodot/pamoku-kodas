@@ -5,14 +5,17 @@
   "scripts": {
     "start": "node --watch-path=./ index.js",
     "server": "node --watch-path=./ server.js",
-    "express": "node --watch-path=./ express-basics.js"
+    "express": "node --watch-path=./ express-basics.js",
+    "api": "node --watch-path=./ api-basics.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.3",
     "casual": "^1.6.2",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "systeminformation": "^5.25.6"
   }

@@ -488,11 +488,13 @@ console.log(person + ' is ' + age + ' years old. ' + job)
 
 
 
+////////////////////////////////////////////////////
 
 
 
-
-
+fetch("http://localhost:3000/names-list")
+    .then(response => response.json())
+    .then(names => console.log(names))
 
 
 

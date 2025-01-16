@@ -1,3 +1,5 @@
 I ts react instaliuoti react-router-dom         npm i @types/react-router-dom
 
 ignoruoja eilute apacioje//@ts-ignore
+
+Sukurti api su GET ir POST. Prisideti id ir tureti vieno daikto puslapi.
