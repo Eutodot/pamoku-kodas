@@ -6,7 +6,8 @@
     "start": "node --watch-path=./ index.js",
     "server": "node --watch-path=./ server.js",
     "express": "node --watch-path=./ express-basics.js",
-    "api": "node --watch-path=./ api-basics.js"
+    "api": "node --watch-path=./ api-basics.js",
+    "json": "node --watch-path=./ api-json-remake.js"
   },
   "author": "",
   "license": "ISC",

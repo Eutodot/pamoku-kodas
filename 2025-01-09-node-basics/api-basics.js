@@ -64,7 +64,6 @@ app.get('/person', (req, res, next) => {
 
 app.get('/person/:slug', (req, res, next) => {
     const { slug } = req.params
-    console.log("🚀 ~ app.get ~ slug:", slug)
     const foundPerson = people.find(person => person.slug === slug)
     
     if (!foundPerson){
