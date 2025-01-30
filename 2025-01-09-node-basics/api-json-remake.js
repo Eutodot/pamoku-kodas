@@ -30,7 +30,50 @@ const posts = [
     }
 ]
 
-const comments = []
+const comments = [
+    {
+        "postId": "1",
+        "id": "3",
+        "name": "odio adipisci rerum aut animi",
+        "email": "Nikita@garfield.biz",
+        "body": "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione"
+      },
+      {
+        "postId": "1",
+        "id": "4",
+        "name": "alias odio sit",
+        "email": "Lew@alysha.tv",
+        "body": "non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati"
+      },
+      {
+        "postId": "1",
+        "id": "5",
+        "name": "vero eaque aliquid doloribus et culpa",
+        "email": "Hayden@althea.biz",
+        "body": "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et"
+      },
+      {
+        "postId": "2",
+        "id": "6",
+        "name": "et fugit eligendi deleniti quidem qui sint nihil autem",
+        "email": "Presley.Mueller@myrl.com",
+        "body": "doloribus at sed quis culpa deserunt consectetur qui praesentium\naccusamus fugiat dicta\nvoluptatem rerum ut voluptate autem\nvoluptatem repellendus aspernatur dolorem in"
+      },
+      {
+        "postId": "2",
+        "id": "7",
+        "name": "repellat consequatur praesentium vel minus molestias voluptatum",
+        "email": "Dallas@ole.me",
+        "body": "maiores sed dolores similique labore et inventore et\nquasi temporibus esse sunt id et\neos voluptatem aliquam\naliquid ratione corporis molestiae mollitia quia et magnam dolor"
+      },
+      {
+        "postId": "2",
+        "id": "8",
+        "name": "et omnis dolorem",
+        "email": "Mallory_Kunze@marie.org",
+        "body": "ut voluptatem corrupti velit\nad voluptatem maiores\net nisi velit vero accusamus maiores\nvoluptates quia aliquid ullam eaque"
+      }
+]
 
 const users = [
     {
@@ -167,6 +210,7 @@ const photos = [
     }
 ]
 
+console.log(process.env.PORT)
 
 const getUserById = id => {
     const foundUser = users.find(user => user.id === id)
@@ -174,10 +218,66 @@ const getUserById = id => {
     return foundUser
 }
 
+const getPostsByUserId = id => {
+    const foundPosts = posts.filter(post => post.userId === id)
+    
+    return foundPosts
+}
+
+const getAlbumsByUserId = id => {
+    const foundAlbums = albums.filter(album => album.userId === id)
+    
+    return foundAlbums
+}
+
 const getPhotosByAlbumId = id => {
     const foundPhotos = photos.filter(photo => photo.albumId === id)
     
     return foundPhotos
+}
+
+const getCommentsByPostId = id => {
+    const foundComments = comments.filter(comment => comment.postId === id)
+    
+    return foundComments
+}
+
+const embedUser = (user, embed) => {
+    const embedList = Array.isArray(embed) ? embed : [embed]
+    const embedData = embedList.map(item => item.toLowerCase())
+
+    const userId = user.id
+    const updatedUser = {...user}
+    
+    if (embedData.includes('posts')){
+        updatedUser.posts = getPostsByUserId(id)
+    }
+    
+    if (embedData.includes('albums')){
+        updatedUser.comments = getAlbumsByUserId(id)
+    }
+
+    
+    return updatedUser
+}
+
+const embedPost = (post, embed) => {
+    const embedList = Array.isArray(embed) ? embed : [embed]
+    const embedData = embedList.map(item => item.toLowerCase())
+
+    const userId = post.userId
+    const updatedPost = {...post}
+    
+    if (embedData.includes('user')){
+        updatedPost.user = getUserById(userId)
+    }
+    
+    if (embedData.includes('comments')){
+        updatedPost.comments = getCommentsByPostId(post.id)
+    }
+
+    
+    return updatedPost
 }
 
 const embedAlbum = (album, embed) => {
@@ -199,21 +299,25 @@ const embedAlbum = (album, embed) => {
     return updatedAlbum
 }
 
+
+
 app.get('/posts', (req, res, next) => {
-    console.log(req.query)
-    const { embed } = req.query
-    if (Array.isArray(embed)){
+    const embed = req.query._embed
 
-    } else {
+    const response = posts.map(post => embedPost(post, embed))
 
-    }
-    res.send(posts)
+    res.send(response)
 })
 
 app.get('/posts/:id', (req, res, next) => {
     const { id } = req.params
+    const embed = req.query._embed
+
     const foundPost = posts.find(post => post.id === id)
-    res.send(foundPost)
+
+    const response = embedPost(foundPost, embed)
+
+    res.send(response)
 })
 
 app.post('/posts', (req, res, next) => {
@@ -256,7 +360,7 @@ app.post('/comments', (req, res, next) => {
     const newComment = req.body
     newComment.id = Math.random().toString().slice(2, 7)
     newComment.creationDate = new Date()
-    comments.push(newComment)
+    comments.unshift(newComment)
     
     res.send(newComment)
 })
@@ -352,4 +456,4 @@ app.post('/photos', (req, res, next) => {
 
 
 
-app.listen(3000, () => console.log("Server is running on 3000"))
+app.listen(process.env.PORT, () => console.log(`Server is running on ${process.env.PORT}`))
