@@ -2,33 +2,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
+const postsRoutes = require('./routes/posts')
+
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
+app.use('/posts', postsRoutes)
 
-const posts = [
-    {
-        "userId": "1",
-        "id": "1",
-        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-    },
-    {
-        "userId": "1",
-        "id": "2",
-        "title": "qui est esse",
-        "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla"
-    },
-    {
-        "userId": "1",
-        "id": "3",
-        "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
-        "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
-    }
-]
+
 
 const comments = [
     {
@@ -210,9 +194,13 @@ const photos = [
     }
 ]
 
-console.log(process.env.PORT)
-
 const getUserById = id => {
+    const foundUser = users.find(user => user.id === id)
+    
+    return foundUser
+}
+
+const getPostById = id => {
     const foundUser = users.find(user => user.id === id)
     
     return foundUser
@@ -222,6 +210,12 @@ const getPostsByUserId = id => {
     const foundPosts = posts.filter(post => post.userId === id)
     
     return foundPosts
+}
+
+const getCommentsByPostId = id => {
+    const foundComments = comments.filter(comment => comment.postId === id)
+    
+    return foundComments
 }
 
 const getAlbumsByUserId = id => {
@@ -236,11 +230,7 @@ const getPhotosByAlbumId = id => {
     return foundPhotos
 }
 
-const getCommentsByPostId = id => {
-    const foundComments = comments.filter(comment => comment.postId === id)
-    
-    return foundComments
-}
+
 
 const embedUser = (user, embed) => {
     const embedList = Array.isArray(embed) ? embed : [embed]
@@ -261,24 +251,7 @@ const embedUser = (user, embed) => {
     return updatedUser
 }
 
-const embedPost = (post, embed) => {
-    const embedList = Array.isArray(embed) ? embed : [embed]
-    const embedData = embedList.map(item => item.toLowerCase())
 
-    const userId = post.userId
-    const updatedPost = {...post}
-    
-    if (embedData.includes('user')){
-        updatedPost.user = getUserById(userId)
-    }
-    
-    if (embedData.includes('comments')){
-        updatedPost.comments = getCommentsByPostId(post.id)
-    }
-
-    
-    return updatedPost
-}
 
 const embedAlbum = (album, embed) => {
     const embedList = Array.isArray(embed) ? embed : [embed]
@@ -299,62 +272,20 @@ const embedAlbum = (album, embed) => {
     return updatedAlbum
 }
 
-
-
-app.get('/posts', (req, res, next) => {
-    const embed = req.query._embed
-
-    const response = posts.map(post => embedPost(post, embed))
-
-    res.send(response)
-})
-
-app.get('/posts/:id', (req, res, next) => {
-    const { id } = req.params
-    const embed = req.query._embed
-
-    const foundPost = posts.find(post => post.id === id)
-
-    const response = embedPost(foundPost, embed)
-
-    res.send(response)
-})
-
-app.post('/posts', (req, res, next) => {
-    const newPost = req.body
-    newPost.id = Math.random().toString().slice(2, 7)
-    newPost.creationDate = new Date()
-    posts.push(newPost)
-    console.log(posts)
-    res.send(newPost)
-})
-
-app.put('/posts/:id', (req, res, next) => {
-    const { id } = req.params
-    const newPost = req.body
-    const updatedPost = { 
-        ...newPost,
-        id,
-        lastModified: new Date()
-        // slug: generatePersonSlug({...newPerson, id})
+const sliceData = (data, { start, end, limit }) => {
+    if (!data || data.length === 0){
+        return data
     }
 
-    const foundIndex = posts.findIndex(post => post.id === id)
-    if (foundIndex !== -1){
-        posts.splice(foundIndex, 1, updatedPost)
-    } 
-    
-    res.send(updatedPost)
-})
+    const startParam = start ? start : 0
+    const endParam = end ? end : data.length
 
-app.delete('/posts/:id', (req, res, next) => {
-    const { id } = req.params
-    const foundIndex = posts.findIndex(post => post.id === id)
-    if (foundIndex !== -1){
-        posts.splice(foundIndex, 1)
-    } 
-    res.send(posts)
-})
+    return data.slice(startParam, endParam)
+    console.log(start)
+    console.log(end)
+    console.log(limit)
+}
+
 
 app.post('/comments', (req, res, next) => {
     const newComment = req.body
@@ -375,19 +306,20 @@ app.delete('/comments/:id', (req, res, next) => {
 })
 
 app.get('/users', (req, res, next) => {
-    const { embed } = req.query
-    if (Array.isArray(embed)){
+    const embed = req.query._embed
 
-    } else {
+    const response = users.map(user => embedUser(user, embed))
 
-    }
-    res.send(users)
+    res.send(response)
 })
 
 app.get('/users/:id', (req, res, next) => {
     const { id } = req.params
+    const embed = req.query._embed
     
-    res.send(getUserById(id))
+    const response = embedUser(getUserById(id), embed)
+
+    res.send(response)
 })
 
 app.post('/users', (req, res, next) => {
