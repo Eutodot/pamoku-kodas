@@ -272,19 +272,7 @@ const embedAlbum = (album, embed) => {
     return updatedAlbum
 }
 
-const sliceData = (data, { start, end, limit }) => {
-    if (!data || data.length === 0){
-        return data
-    }
 
-    const startParam = start ? start : 0
-    const endParam = end ? end : data.length
-
-    return data.slice(startParam, endParam)
-    console.log(start)
-    console.log(end)
-    console.log(limit)
-}
 
 
 app.post('/comments', (req, res, next) => {

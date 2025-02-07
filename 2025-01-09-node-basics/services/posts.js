@@ -1,12 +1,24 @@
 const posts = require('../data/posts')
+const { sliceData, sortData } = require('./utils')
 
-const getPosts = () => {
-    console.log(posts)
+const getPosts = (query) => {
     if (!posts){
         return []
     }
+    console.log(query)
+    console.log(Object.entries(query))
+    const embed = query._embed
+    const start = query._start
+    const end = query._end
+    const limit = query._limit
+    // const filterKey = query.
+    const sort = query._sort
+    const order = query._order
 
-    return posts
+    let response = sortData(posts, sort, order)
+    response = sliceData(posts, {start, end, limit})
+
+    return response
 }
 
 const getPostById = id => {

@@ -5,14 +5,10 @@ const { getPosts, getPostById } = require('../services/posts')
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-    // const embed = req.query._embed
-    // const start = req.query._start
-    // const end = req.query._end
-    // const limit = req.query._limit
 
     // const postData = [...posts]
     
-    const response = getPosts()
+    const response = getPosts(req.query)
     // const response = sliceData(postData, {start, end, limit}).map(post => embedPost(post, embed))
 
     res.send(response)
