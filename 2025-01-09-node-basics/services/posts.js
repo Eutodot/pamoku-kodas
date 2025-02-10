@@ -56,4 +56,4 @@ const getPostsByUserId = id => {
     return foundPosts
 }
 
-module.exports = {getPosts, getPostById, embedPost, getPostsByUserId}
+module.exports = { getPosts, getPostById, embedPost, getPostsByUserId }
