@@ -7,3 +7,4 @@ Sukurti api su GET ir POST. Prisideti id ir tureti vieno daikto puslapi.
 Paprasta api projekta perdaryti api persidarant paciam
 
 leisti pasirinkti range  https://github.com/typicode/json-server
+
