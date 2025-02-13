@@ -1,3 +1,5 @@
+const data = require("../data/data")
+
 const sliceData = (data, { start, end, limit }) => {
     if (!data || data.length === 0){
         return []
@@ -78,5 +80,21 @@ const sortData = (data, sort, order = 'asc') => {
     })
 }
 
+const getSingleDataById = (collection, id) => {
+    if (!collection || !id){
+        return {}
+    }
 
-module.exports = { sliceData, filterData, sortData }
+    const foundCollection = data[collection]
+    
+    if (!foundCollection){
+        return {}
+    }
+
+    const foundItem = foundCollection.find(item => item.id === id)
+
+    return foundItem
+}
+
+
+module.exports = { sliceData, filterData, sortData, getSingleDataById }

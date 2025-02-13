@@ -1,5 +1,8 @@
 const posts = require('../data/posts')
-const { sliceData, sortData } = require('./utils')
+const pluralize = require('pluralize')
+const { getCommentsByPostId } = require('./comments')
+const { getUserById } = require('./users')
+const { sliceData, sortData, getSingleDataById } = require('./utils')
 
 const getPosts = (query) => {
     if (!posts){
@@ -17,37 +20,55 @@ const getPosts = (query) => {
 
     let response = sortData(posts, sort, order)
     response = sliceData(posts, {start, end, limit})
+    response = response.map(post => embedPost(post, embed))
 
     return response
 }
 
-const getPostById = id => {
-    const foundPost = posts.find(post => post.id === id)
+const getPostById = (id, query) => {
+    const embed = query._embed
     
+    let foundPost = posts.find(post => post.id === id)
+    foundPost = embedPost(foundPost, embed)
+
     return foundPost ?? {}
 }
 
-const embedPost = (post, embed) => {
+const embedPost = (data, embed) => {
     if (!embed){
-        return post
+        return data
     }
 
     const embedList = Array.isArray(embed) ? embed : [embed]
     const embedData = embedList.map(item => item.toLowerCase())
 
-    const userId = post.userId
-    const updatedPost = {...post}
     
-    if (embedData.includes('user')){
-        updatedPost.user = getUserById(userId)
-    }
+    const updatedData = {...data}
     
-    if (embedData.includes('comments')){
-        updatedPost.comments = getCommentsByPostId(post.id)
-    }
+    embedData.map((item) => {
+        if (pluralize.isSingular(item)){
+            if (embedData.includes(item)){
+                // updatedData[item] = getUserById(userId)
+                const id = data[item + 'Id']
+                updatedData[item] = getSingleDataById(pluralize.plural(item), id)
+            }
+        } else {
+            // TODO: Padaryti sito daikto daugiskaitos priemima
+        }
+
+        
+    })
+
+    // if (embedData.includes('user')){
+    //     updatedPost.user = getUserById(userId)
+    // }
+    
+    // if (embedData.includes('comments')){
+    //     updatedPost.comments = getCommentsByPostId(post.id)
+    // }
 
     
-    return updatedPost
+    return updatedData
 }
 
 const getPostsByUserId = id => {

@@ -21,3 +21,5 @@ router.delete('/:id', (req, res, next) => {
     } 
     res.send(comments)
 })
+
+module.exports = router

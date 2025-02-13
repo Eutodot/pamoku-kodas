@@ -54,3 +54,5 @@ router.delete('/:id', (req, res, next) => {
     } 
     res.send(users)
 })
+
+module.exports = router

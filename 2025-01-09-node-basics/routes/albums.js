@@ -20,3 +20,5 @@ router.get('/:id', (req, res, next) => {
 
     res.send(response)
 })
+
+module.exports = router

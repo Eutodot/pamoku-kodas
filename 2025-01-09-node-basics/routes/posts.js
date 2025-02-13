@@ -16,9 +16,8 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const { id } = req.params
-    const embed = req.query._embed
 
-    const response = getPostById(id)
+    const response = getPostById(id, req.query)
     // const response = embedPost(foundPost, embed)
 
     res.send(response)
