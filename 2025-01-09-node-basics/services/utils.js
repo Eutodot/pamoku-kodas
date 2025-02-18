@@ -1,4 +1,23 @@
+const { query } = require("express")
 const data = require("../data/data")
+const pluralize = require('pluralize')
+
+const formatData = (data, query, name) => {
+    const embed = query._embed
+    const start = query._start
+    const end = query._end
+    const limit = query._limit
+    const sort = query._sort
+    const order = query._order
+
+    let response = [...data]
+    response = filterData(response, query)
+    response = sortData(response, sort, order)
+    response = sliceData(response, {start, end, limit})
+    response = response.map(item => embedData(item, embed, name))
+
+    return response
+}
 
 const sliceData = (data, { start, end, limit }) => {
     if (!data || data.length === 0){
@@ -32,16 +51,26 @@ const sliceData = (data, { start, end, limit }) => {
     return data
 }
 
-const filterData = (data, key, value) => {
+const filterData = (data, query) => {
     if (!data || data.length === 0){
         return []
     }
 
-    if (!key || !value){
+    if (!query || Object.keys(query).length === 0){
         return data
     }
+    
+    let filteredData = [...data]
+    
+    for (const key in query){
+        if (key[0] === '_'){
+            continue
+        }
 
-    const filteredData = data.filter(item => item[key] === value)
+        const value = query[key]
+        
+        filteredData = filteredData.filter(item => item[key].toLowerCase() === value.toLowerCase())
+    }
 
     return filteredData
 }
@@ -80,6 +109,40 @@ const sortData = (data, sort, order = 'asc') => {
     })
 }
 
+const embedData = (data, embed, name) => {
+    if (!embed){
+        return data
+    }
+
+    const embedList = Array.isArray(embed) ? embed : [embed]
+    const embedData = embedList.map(item => item.toLowerCase())
+
+    
+    const updatedData = {...data}
+    
+    embedData.map((item) => {
+        if (pluralize.isSingular(item)){
+            if (embedData.includes(item)){
+                // updatedData[item] = getUserById(userId)
+                const id = data[item + 'Id']
+                updatedData[item] = getSingleDataById(pluralize.plural(item), id)
+            }
+        } else {
+            if (embedData.includes(item)){
+                // updatedData[item] = getUserById(userId)
+                const id = data.id
+                const nameId = `${name.toLowerCase()}Id`
+                
+                updatedData[item] = getMultipleDataById(item, id, nameId)
+            }
+        }
+
+        
+    })
+    
+    return updatedData
+}
+
 const getSingleDataById = (collection, id) => {
     if (!collection || !id){
         return {}
@@ -96,5 +159,21 @@ const getSingleDataById = (collection, id) => {
     return foundItem
 }
 
+const getMultipleDataById = (collection, id, nameId) => {
+    if (!collection || !id){
+        return []
+    }
 
-module.exports = { sliceData, filterData, sortData, getSingleDataById }
+    const foundCollection = data[collection]
+    
+    if (!foundCollection){
+        return []
+    }
+
+    const foundItems = foundCollection.filter(item => item[nameId] === id)
+
+    return foundItems
+}
+
+
+module.exports = { formatData, sliceData, filterData, sortData, embedData, getSingleDataById, getMultipleDataById }

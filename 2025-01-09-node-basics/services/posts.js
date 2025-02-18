@@ -1,26 +1,31 @@
 const posts = require('../data/posts')
-const pluralize = require('pluralize')
-const { getCommentsByPostId } = require('./comments')
-const { getUserById } = require('./users')
-const { sliceData, sortData, getSingleDataById } = require('./utils')
+const { sliceData, sortData, embedData, formatData } = require('./utils')
 
 const getPosts = (query) => {
     if (!posts){
         return []
     }
-    console.log(query)
-    console.log(Object.entries(query))
-    const embed = query._embed
-    const start = query._start
-    const end = query._end
-    const limit = query._limit
-    // const filterKey = query.
-    const sort = query._sort
-    const order = query._order
+    
+    // const queryEntries = Object.entries(query)
+    // queryEntries.forEach(entry => {
+    //     if (Array.from(entry[0])[0] !== '_'){
+    //         const filterKey = entry[0]
+    //         const filterValue = entry[1]
 
-    let response = sortData(posts, sort, order)
-    response = sliceData(posts, {start, end, limit})
-    response = response.map(post => embedPost(post, embed))
+    //     }
+    // })
+    // const embed = query._embed
+    // const start = query._start
+    // const end = query._end
+    // const limit = query._limit
+    // const sort = query._sort
+    // const order = query._order
+
+    // let response = sortData(posts, sort, order)
+    // response = sliceData(posts, {start, end, limit})
+    // response = response.map(post => embedData(post, embed, 'post'))
+
+    const response = formatData(posts, query, 'post')
 
     return response
 }
@@ -29,46 +34,9 @@ const getPostById = (id, query) => {
     const embed = query._embed
     
     let foundPost = posts.find(post => post.id === id)
-    foundPost = embedPost(foundPost, embed)
+    foundPost = embedData(foundPost, embed, 'post')
 
     return foundPost ?? {}
-}
-
-const embedPost = (data, embed) => {
-    if (!embed){
-        return data
-    }
-
-    const embedList = Array.isArray(embed) ? embed : [embed]
-    const embedData = embedList.map(item => item.toLowerCase())
-
-    
-    const updatedData = {...data}
-    
-    embedData.map((item) => {
-        if (pluralize.isSingular(item)){
-            if (embedData.includes(item)){
-                // updatedData[item] = getUserById(userId)
-                const id = data[item + 'Id']
-                updatedData[item] = getSingleDataById(pluralize.plural(item), id)
-            }
-        } else {
-            // TODO: Padaryti sito daikto daugiskaitos priemima
-        }
-
-        
-    })
-
-    // if (embedData.includes('user')){
-    //     updatedPost.user = getUserById(userId)
-    // }
-    
-    // if (embedData.includes('comments')){
-    //     updatedPost.comments = getCommentsByPostId(post.id)
-    // }
-
-    
-    return updatedData
 }
 
 const getPostsByUserId = id => {
@@ -77,4 +45,37 @@ const getPostsByUserId = id => {
     return foundPosts
 }
 
-module.exports = { getPosts, getPostById, embedPost, getPostsByUserId }
+const postNewPost = newPost => {
+    newPost.id = Math.random().toString().slice(2, 7)
+    newPost.creationDate = new Date()
+    posts.push(newPost)
+    
+    return newPost
+}
+
+const editPost = (id, newPost) => {
+    const updatedPost = { 
+        ...newPost,
+        id,
+        lastModified: new Date()
+        // slug: generatePersonSlug({...newPerson, id})
+    }
+
+    const foundIndex = posts.findIndex(post => post.id === id)
+    if (foundIndex !== -1){
+        posts.splice(foundIndex, 1, updatedPost)
+    } 
+
+    return updatedPost
+}
+
+const deletePost = id => {
+    const foundIndex = posts.findIndex(post => post.id === id)
+    if (foundIndex !== -1){
+        posts.splice(foundIndex, 1)
+    } 
+
+    return posts
+}
+
+module.exports = { getPosts, getPostById, getPostsByUserId, postNewPost, editPost, deletePost }

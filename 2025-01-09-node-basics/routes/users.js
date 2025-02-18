@@ -12,9 +12,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const { id } = req.params
-    const embed = req.query._embed
-    
-    const response = embedUser(getUserById(id), embed)
+    const query = req.query
+
+    const response = getUserById(id, query)
 
     res.send(response)
 })

@@ -1,5 +1,5 @@
 const users = require('../data/users')
-const { sliceData, sortData } = require('./utils')
+const { sliceData, sortData, embedData } = require('./utils')
 
 const getUsers = (query) => {
     if (!users){
@@ -21,9 +21,12 @@ const getUsers = (query) => {
     return response
 }
 
-const getUserById = id => {
-    const foundUser = users.find(user => user.id === id)
-    
+const getUserById = (id, query) => {
+    const embed = query._embed
+
+    let foundUser = users.find(user => user.id === id)
+    foundUser = embedData(foundUser, embed, 'user')
+
     return foundUser ?? {}
 }
 
