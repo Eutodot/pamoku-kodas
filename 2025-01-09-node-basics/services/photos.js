@@ -1,49 +1,42 @@
 const photos = require('../data/photos')
-const { sliceData, sortData } = require('./utils')
+const { sliceData, sortData, formatData } = require('./utils')
 
 const getPhotos = (query) => {
     if (!photos){
         return []
     }
-    console.log(query)
-    console.log(Object.entries(query))
-    const embed = query._embed
-    const start = query._start
-    const end = query._end
-    const limit = query._limit
-    // const filterKey = query.
-    const sort = query._sort
-    const order = query._order
-
-    let response = sortData(photos, sort, order)
-    response = sliceData(photos, {start, end, limit})
+    
+    const response = formatData(photos, query, 'photo')
 
     return response
 }
 
-const getPhotoById = id => {
-    const foundPhoto = photos.find(photo => photo.id === id)
+const getPhotoById = (id, query) => {
+    const embed = query._embed
+
+    let foundPhoto = photos.find(photo => photo.id === id)
+    foundPhoto = embedData(foundPhoto, embed, 'photo')
     
     return foundPhoto ?? {}
 }
 
-const embedPhoto = (photo, embed) => {
-    if (!embed){
-        return post
-    }
+// const embedPhoto = (photo, embed) => {
+//     if (!embed){
+//         return post
+//     }
 
-    const embedList = Array.isArray(embed) ? embed : [embed]
-    const embedData = embedList.map(item => item.toLowerCase())
+//     const embedList = Array.isArray(embed) ? embed : [embed]
+//     const embedData = embedList.map(item => item.toLowerCase())
 
-    const albumId = photo.albumId
-    const updatedPhoto = {...photo}
+//     const albumId = photo.albumId
+//     const updatedPhoto = {...photo}
     
-    if (embedData.includes('album')){
-        updatedPhoto.album = getPhotosByAlbumId(albumId)
-    }
+//     if (embedData.includes('album')){
+//         updatedPhoto.album = getPhotosByAlbumId(albumId)
+//     }
     
-    return updatedPhoto
-}
+//     return updatedPhoto
+// }
 
 const getPhotosByAlbumId = id => {
     const foundPhotos = photos.filter(photo => photo.albumId === id)

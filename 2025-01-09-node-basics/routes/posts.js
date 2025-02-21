@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { getPosts, getPostById, postNewPost } = require('../services/posts')
+const { getPosts, getPostById, postNewPost, editPost, deletePost } = require('../services/posts')
 
 const router = express.Router()
 

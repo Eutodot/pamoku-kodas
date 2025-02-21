@@ -1,22 +1,12 @@
 const users = require('../data/users')
-const { sliceData, sortData, embedData } = require('./utils')
+const { embedData, formatData } = require('./utils')
 
 const getUsers = (query) => {
     if (!users){
         return []
     }
-    console.log(query)
-    console.log(Object.entries(query))
-    const embed = query._embed
-    const start = query._start
-    const end = query._end
-    const limit = query._limit
-    // const filterKey = query.
-    const sort = query._sort
-    const order = query._order
-
-    let response = sortData(users, sort, order)
-    response = sliceData(users, {start, end, limit})
+    
+    const response = formatData(users, query, 'user')
 
     return response
 }
@@ -30,27 +20,37 @@ const getUserById = (id, query) => {
     return foundUser ?? {}
 }
 
-const embedUser = (user, embed) => {
-    if (!embed){
-        return user
-    }
-
-    const embedList = Array.isArray(embed) ? embed : [embed]
-    const embedData = embedList.map(item => item.toLowerCase())
-
-    const userId = user.id
-    const updatedUser = {...user}
+const postNewUser = newUser => {
+    newUser.id = Math.random().toString().slice(2, 7)
+    newUser.creationDate = new Date()
+    users.push(newUser)
     
-    if (embedData.includes('posts')){
-        updatedUser.posts = getPostsByUserId(id)
-    }
-    
-    if (embedData.includes('albums')){
-        updatedUser.comments = getAlbumsByUserId(id)
-    }
+    return newUser
+}
 
+const editUser = (id, newUser) => {
+    const updatedUser = { 
+        ...newUser,
+        id,
+        lastModified: new Date()
+        // slug: generatePersonSlug({...newPerson, id})
+    }
     
+    const foundIndex = users.findIndex(user => user.id === id)
+    if (foundIndex !== -1){
+        users.splice(foundIndex, 1, updatedUser)
+    } 
+
     return updatedUser
 }
 
-module.exports = { getUsers, getUserById, embedUser }
+const deleteUser = id => {
+    const foundIndex = users.findIndex(user => user.id === id)
+    if (foundIndex !== -1){
+        users.splice(foundIndex, 1)
+    } 
+
+    return users
+}
+
+module.exports = { getUsers, getUserById, postNewUser, editUser, deleteUser }

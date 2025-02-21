@@ -1,4 +1,3 @@
-const { query } = require("express")
 const data = require("../data/data")
 const pluralize = require('pluralize')
 
@@ -66,10 +65,45 @@ const filterData = (data, query) => {
         if (key[0] === '_'){
             continue
         }
-
-        const value = query[key]
         
-        filteredData = filteredData.filter(item => item[key].toLowerCase() === value.toLowerCase())
+        const condition = key.split('_')[1]
+        const keyName = key.split('_')[0]
+        const value = query[key]
+
+
+        filteredData = filteredData.filter(item => {
+            const itemValue = item[keyName]
+
+            if (!condition){
+                if (typeof itemValue === 'string'){
+                    return itemValue.toLowerCase() === value.toLowerCase()
+                }
+    
+                if (typeof itemValue === 'number'){
+                    return itemValue == value
+                }
+                
+                return
+            } 
+            
+            
+            if (condition === 'lt'){
+                return itemValue < value
+            }
+            if (condition === 'lte'){
+                return itemValue <= value
+            }
+            if (condition === 'gt'){
+                return itemValue > value
+            }
+            if (condition === 'gte'){
+                return itemValue >= value
+            }
+            if (condition === 'ne'){
+                return itemValue != value
+            }
+
+        })
     }
 
     return filteredData
@@ -174,6 +208,7 @@ const getMultipleDataById = (collection, id, nameId) => {
 
     return foundItems
 }
+
 
 
 module.exports = { formatData, sliceData, filterData, sortData, embedData, getSingleDataById, getMultipleDataById }

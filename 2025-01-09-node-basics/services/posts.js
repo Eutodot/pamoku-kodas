@@ -5,25 +5,6 @@ const getPosts = (query) => {
     if (!posts){
         return []
     }
-    
-    // const queryEntries = Object.entries(query)
-    // queryEntries.forEach(entry => {
-    //     if (Array.from(entry[0])[0] !== '_'){
-    //         const filterKey = entry[0]
-    //         const filterValue = entry[1]
-
-    //     }
-    // })
-    // const embed = query._embed
-    // const start = query._start
-    // const end = query._end
-    // const limit = query._limit
-    // const sort = query._sort
-    // const order = query._order
-
-    // let response = sortData(posts, sort, order)
-    // response = sliceData(posts, {start, end, limit})
-    // response = response.map(post => embedData(post, embed, 'post'))
 
     const response = formatData(posts, query, 'post')
 

@@ -8,3 +8,4 @@ Paprasta api projekta perdaryti api persidarant paciam
 
 leisti pasirinkti range  https://github.com/typicode/json-server
 
+TODO: Padaryti paginate

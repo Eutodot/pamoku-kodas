@@ -1,25 +1,41 @@
 const express = require('express')
 
-const {  } = require('../services/comments')
+const { deleteComment, postNewComment, editComment, getComments, getCommentById } = require('../services/comments')
 
 const router = express.Router()
 
+router.get('/', (req, res, next) => {
+    const response = getComments(req.query)
+
+    res.send(response)
+})
+
+router.get('/:id', (req, res, next) => {
+    const { id } = req.params
+
+    const response = getCommentById(id, req.query)
+
+    res.send(response)
+})
+
 router.post('/', (req, res, next) => {
     const newComment = req.body
-    newComment.id = Math.random().toString().slice(2, 7)
-    newComment.creationDate = new Date()
-    comments.unshift(newComment)
     
-    res.send(newComment)
+    res.send(postNewComment(newComment))
+})
+
+router.put('/:id', (req, res, next) => {
+    const { id } = req.params
+    const newComment = req.body
+    
+    
+    res.send(editComment(id, newComment))
 })
 
 router.delete('/:id', (req, res, next) => {
     const { id } = req.params
-    const foundIndex = comments.findIndex(comment => comment.id === id)
-    if (foundIndex !== -1){
-        comments.splice(foundIndex, 1)
-    } 
-    res.send(comments)
+    
+    res.send(deleteComment(id))
 })
 
 module.exports = router

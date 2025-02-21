@@ -1,7 +1,6 @@
 const express = require('express')
 
 const { getPhotos, getPhotoById, editPhoto, deletePhoto, postNewPhoto } = require('../services/photos')
-const photos = require('../data/photos')
 
 const router = express.Router()
 
@@ -13,9 +12,8 @@ router.get('/', (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
     const { id } = req.params
-    const embed = req.query._embed
     
-    const response = embedUser(getPhotoById(id), embed)
+    const response = getPhotoById(id, req.query)
 
     res.send(response)
 })
