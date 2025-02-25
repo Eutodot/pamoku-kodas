@@ -8,12 +8,16 @@ const formatData = (data, query, name) => {
     const limit = query._limit
     const sort = query._sort
     const order = query._order
+    const page = query._page
+    const perPage = query._per_page
 
     let response = [...data]
+    
     response = filterData(response, query)
     response = sortData(response, sort, order)
     response = sliceData(response, {start, end, limit})
     response = response.map(item => embedData(item, embed, name))
+    response = paginateData(response, page, perPage)
 
     return response
 }
@@ -50,7 +54,7 @@ const sliceData = (data, { start, end, limit }) => {
     return data
 }
 
-const filterData = (data, query) => {
+const filterData = (data, query) => { 
     if (!data || data.length === 0){
         return []
     }
@@ -118,7 +122,9 @@ const sortData = (data, sort, order = 'asc') => {
         return data
     }
 
-    data.sort((a, b) => {
+    const sortedData = [...data]
+
+    sortedData.sort((a, b) => {
         const aProperty = a[sort]
         const bProperty = b[sort]
 
@@ -141,6 +147,35 @@ const sortData = (data, sort, order = 'asc') => {
 
         return 0
     })
+    
+    return sortedData
+}
+
+const paginateData = (data, pageNum, perPage = 10) => {
+    if (pageNum < 1){
+        return data
+    }
+    const items = data.length
+    const pages = Math.ceil(data.length / perPage)
+    const page = Number(pageNum) > pages ? pages : Math.floor(Number(pageNum))
+    const first = 1
+    const last = pages
+    const prev = page - 1 < first ? null : page - 1
+    const next = page + 1 > last ? null : page + 1
+    const pageStart = (page - 1) * perPage
+    const pageData = sliceData(data, {start: pageStart, end: pageStart + perPage})
+    
+    const response = {
+        first,
+        prev,
+        next,
+        last,
+        pages,
+        items,
+        data: pageData
+    }
+
+    return response
 }
 
 const embedData = (data, embed, name) => {

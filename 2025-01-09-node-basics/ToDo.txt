@@ -8,4 +8,6 @@ Paprasta api projekta perdaryti api persidarant paciam
 
 leisti pasirinkti range  https://github.com/typicode/json-server
 
-TODO: Padaryti paginate
+Padaryti paginate
+
+TODO: jei string tikrinti, jei masyvas, paversti i string ir tikriti, jei objektas, leisti funkcija is naujo 
