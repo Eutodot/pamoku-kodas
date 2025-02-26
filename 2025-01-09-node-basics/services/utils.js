@@ -76,39 +76,11 @@ const filterData = (data, query) => {
 
 
         filteredData = filteredData.filter(item => {
-            const itemValue = item[keyName]
-
-            if (!condition){
-                if (typeof itemValue === 'string'){
-                    return itemValue.toLowerCase() === value.toLowerCase()
-                }
-    
-                if (typeof itemValue === 'number'){
-                    return itemValue == value
-                }
-                
-                return
-            } 
-            
-            
-            if (condition === 'lt'){
-                return itemValue < value
-            }
-            if (condition === 'lte'){
-                return itemValue <= value
-            }
-            if (condition === 'gt'){
-                return itemValue > value
-            }
-            if (condition === 'gte'){
-                return itemValue >= value
-            }
-            if (condition === 'ne'){
-                return itemValue != value
-            }
-
+            // console.log(filterItem(item, keyName, value, condition))
+            filterItem(item, keyName, value, condition)
         })
-    }
+    // console.log(filteredData)
+}   
 
     return filteredData
 }
@@ -242,6 +214,69 @@ const getMultipleDataById = (collection, id, nameId) => {
     const foundItems = foundCollection.filter(item => item[nameId] === id)
 
     return foundItems
+}
+
+const filterItem = (item, keyName, value, condition) => {
+    if (keyName === 'q' && !condition){
+        for (const property in item){
+            if (typeof item[property] === 'number'){
+                if (item[property] == value){
+                    return true
+                }
+            }
+            
+            if (typeof item[property] === 'string'){
+                // console.log(item[property].includes(value))
+                if (item[property].includes(value)){
+                    return true
+                }
+            }
+            
+            if (typeof item[property] === 'array'){
+                if (item[property].toString().includes(value)){
+                    return true
+                }
+            }
+            
+            if (typeof item[property] === 'object'){
+                if (filterItem(item[property], keyName, value, condition)){
+                    return true
+                }
+            }
+        }
+    }
+
+    const itemValue = item[keyName]
+
+    if (!condition){
+        if (typeof itemValue === 'string'){
+            // console.log('ijijij')
+            return itemValue.toLowerCase() === value.toLowerCase()
+        }
+
+        if (typeof itemValue === 'number'){
+            return itemValue == value
+        }
+        
+        return
+    } 
+    
+    
+    if (condition === 'lt'){
+        return itemValue < value
+    }
+    if (condition === 'lte'){
+        return itemValue <= value
+    }
+    if (condition === 'gt'){
+        return itemValue > value
+    }
+    if (condition === 'gte'){
+        return itemValue >= value
+    }
+    if (condition === 'ne'){
+        return itemValue != value
+    }
 }
 
 
